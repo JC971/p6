@@ -11,7 +11,7 @@ function photographerFactory(data) {
   
       // Création de l'élément <a> avec l'ancre
       const a = document.createElement('a');
-       a.setAttribute('href', `http://127.0.0.1:5500/Front-End-Fisheye/photographer.html?id=${id}`);
+       a.setAttribute('href', `http://127.0.0.1:5500/photographer.html?id=${id}`);
       
       const img = document.createElement('img');
       img.setAttribute('src', picture);

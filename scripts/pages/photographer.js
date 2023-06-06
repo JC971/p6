@@ -29,7 +29,7 @@ links.forEach(link => {
     const photographerIdent = link.id;
 
     // Construire la nouvelle URL avec l'ID du photographe en tant que paramètre de requête
-    const newUrl = `https://Front-End-Fisheye\photographer.html?id=${photographerIdent}`;
+    const newUrl = `https://photographer.html?id=${photographerIdent}`;
    
     window.location.href = newUrl;
   });
