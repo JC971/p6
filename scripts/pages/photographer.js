@@ -29,7 +29,9 @@ fetch('data/photographers.json')
   const media = data['media'];
   const portfolio = [];
   const photographer = data['photographers'];
-  let photographCourant ;
+  let photographCourant;
+  
+
 // on récupère les photos du photographe
   for (let i = 0; i < media.length; i++) {
     if (media[i].photographerId==photographId)
@@ -38,12 +40,6 @@ fetch('data/photographers.json')
 
 
      };
-
-
-
-
-
-
 
 
 /*
@@ -68,9 +64,20 @@ fetch('data/photographers.json')
   }
 
   console.log(photographCourant);
-  console.log(portfolio)
+  console.log(portfolio);
+  
+  const nameElement = document.createElement('p');
+  nameElement.innerHTML = photographCourant.name;
+   // ajout de p au container
+  
+  const container = document.getElementById('photographersContainer');
+  container.appendChild(nameElement)
+
+
 
 });
+
+
 
 // Récupérer tous les liens 
 const links = document.querySelectorAll('a');
