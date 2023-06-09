@@ -42,16 +42,7 @@ fetch('data/photographers.json')
      };
 
 
-/*
 
-    // Créer un élément <p> pour afficher le nom du photographe
-    const nameElement = document.createElement('p');
-    nameElement.innerHTML = photographerData.name;
-
-    // Ajouter l'élément au conteneur approprié dans votre page HTML
-    const container = document.getElementById('photographersContainer');
-  
-    container.appendChild(nameElement);*/
   }
 
 // on cherche les informations du photographe
@@ -66,13 +57,20 @@ fetch('data/photographers.json')
   console.log(photographCourant);
   console.log(portfolio);
   
-  const nameElement = document.createElement('p');
+  const nameElement = document.createElement('h1');
   nameElement.innerHTML = photographCourant.name;
+  const cityCountryElement = document.createElement('h3');
+  cityCountryElement.innerHTML = `${photographCourant.city}, ${photographCourant.country}`
+ 
+
+
+
    // ajout de p au container
   
   const container = document.getElementById('photographersContainer');
-  container.appendChild(nameElement)
-
+  container.appendChild(nameElement);
+  container.appendChild(cityCountryElement);
+  
 
 
 });

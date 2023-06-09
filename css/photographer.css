@@ -6,6 +6,12 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
 }
 
 
@@ -20,6 +26,10 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+}
+.container{
+    display: flex;
+    flex-direction: column;
 }
 
 .modal {
@@ -95,4 +105,8 @@ img{
 	justify-content: space-around;
 	align-items: center;
 	align-content: stretch;
+}
+
+#photographersContainer{
+    display: flex;
 }
