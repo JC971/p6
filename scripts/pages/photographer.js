@@ -54,25 +54,38 @@ fetch('data/photographers.json')
     }
   }
 
-  console.log(photographCourant);
+  //console.log(photographCourant);
   console.log(portfolio);
   
   const nameElement = document.createElement('h1');
   nameElement.innerHTML = photographCourant.name;
   const cityCountryElement = document.createElement('h3');
-  cityCountryElement.innerHTML = `${photographCourant.city}, ${photographCourant.country}`
+  cityCountryElement.innerHTML = `${photographCourant.city}, ${photographCourant.country}`;
  
 
 
+  const portraitElement = document.createElement('img');
+  portraitElement.src = photographCourant.portrait;
+ 
+  
+  // Ajout de l'image au conteneur approprié
+  
+ 
 
    // ajout de p au container
   
   const container = document.getElementById('photographersContainer');
   container.appendChild(nameElement);
   container.appendChild(cityCountryElement);
+
+  const containerPortrait = document.getElementById('container-portrait');
+  containerPortrait.appendChild(portraitElement);
   
 
-
+  
+console.log(photographCourant.portrait)
+  
+  
 });
 
 
