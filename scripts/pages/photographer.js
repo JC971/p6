@@ -1,36 +1,23 @@
+
 /*
-function photographerFactory(data) {
-  const { name, portrait, city, country, tagline, price, id } = data;
-
-  const picture = `assets/photographers/${portrait}`;
-
-  function getUserCardDOM() {
-    
-  
-    
-  }
-
-  return { name, picture, city, country, price, id, getUserCardDOM };
-
-};
-*/
-
-
 
 
 const url = window.location.href;
-console.log('url de la page est', url);
+//console.log('url de la page est', url);
 let photographId = url.split("=")[1];
 
-console.log(photographId)
+//console.log(photographId)
 fetch('data/photographers.json')
 .then(response => response.json())
-.then(data => {
+  .then(data => {
   const media = data['media'];
   const portfolio = [];
   const photographer = data['photographers'];
   let photographCourant;
-  
+ 
+    
+
+    
 
 // on récupère les photos du photographe
   for (let i = 0; i < media.length; i++) {
@@ -42,31 +29,41 @@ fetch('data/photographers.json')
      };
 
 
-
   }
 
 // on cherche les informations du photographe
   for (let i = 0; i < photographer.length; i++)
   {
-    if (photographer[i].id == photographId)
+    if (photographer[i].id == photographId && photographer[i].portrait !==undefined)
     {
       photographCourant=photographer[i]
     }
+
+   console.log(photographer[i].portrait)
+
+
   }
 
   //console.log(photographCourant);
-  console.log(portfolio);
+  //console.log(portfolio);
   
   const nameElement = document.createElement('h1');
   nameElement.innerHTML = photographCourant.name;
   const cityCountryElement = document.createElement('h3');
   cityCountryElement.innerHTML = `${photographCourant.city}, ${photographCourant.country}`;
  
+  let image=document.createElement("img")
 
+  // Récupérer l'élément contenant l'image
+var photoPortraitElement = document.getElementById('photo-portrait');
 
-  const portraitElement = document.createElement('img');
-  portraitElement.src = photographCourant.portrait;
+// Définir l'attribut "src" de l'image avec l'URL de l'image du photographe courant
+  //photoPortraitElement.src = photographCourant.portrait;
+    image.src = photographer[i].portrait;
+  photoPortraitElement.alt =photographer[i].portrait ;
+
  
+
   
   // Ajout de l'image au conteneur approprié
   
@@ -78,15 +75,88 @@ fetch('data/photographers.json')
   container.appendChild(nameElement);
   container.appendChild(cityCountryElement);
 
-  const containerPortrait = document.getElementById('container-portrait');
-  containerPortrait.appendChild(portraitElement);
-  
+    
 
+  if (typeof photographCourant.portrait === 'string') {
+    // La propriété 'portrait' contient une URL valide
+    //console.log('L\'URL de l\'image du photographe est :', photographCourant.portrait);
+  } else {
+    // La propriété 'portrait' ne contient pas une URL valide
+    //console.log('L\'URL de l\'image du photographe est manquante ou invalide');
+  }
   
-console.log(photographCourant.portrait)
-  
+//console.log(photographCourant.portrait)
   
 });
+*/
+
+
+const url = window.location.href;
+console.log('url de la page est', url);
+let photographId = url.split("=")[1];
+
+console.log(photographId);
+fetch('data/photographers.json')
+  .then(response => response.json())
+  .then(data => {
+    const media = data['media'];
+    const portfolio = [];
+    const photographer = data['photographers'];
+    let photographCourant;
+
+    // on récupère les photos du photographe
+    for (let i = 0; i < media.length; i++) {
+      if (media[i].photographerId == photographId) {
+        portfolio.push(media[i]);
+      }
+    }
+
+
+    // on cherche les informations du photographe
+    for (let i = 0; i < photographer.length; i++) {
+      if (photographer[i].id == photographId && photographer[i].portrait !== undefined) {
+        photographCourant = photographer[i];
+        break;
+      }
+    }
+
+    const nameElement = document.createElement('h1');
+    nameElement.innerHTML = photographCourant.name;
+    const cityCountryElement = document.createElement('h3');
+    cityCountryElement.innerHTML = `${photographCourant.city}, ${photographCourant.country}`;
+
+    let image = document.createElement("img");
+
+    // Récupérer l'élément contenant l'image
+    const photoPortraitElement = document.getElementById('photo-portrait');
+
+    // Définir l'attribut "src" de l'image avec l'URL de l'image du photographe courant
+    if (photographCourant.portrait !== undefined && typeof photographCourant.portrait === 'string') {
+      image.src = `assets/photographers/${photographCourant.portrait}`;
+      image.alt = photographCourant.name;
+
+      photoPortraitElement.appendChild(image); // Ajouter l'image au conteneur approprié
+    } else {
+      // L'URL de l'image du photographe est manquante ou invalide
+      console.log("L'URL de l'image du photographe est manquante ou invalide");
+    }
+    console.log(image);
+    
+
+    // Ajout des éléments au conteneur
+    const container = document.getElementById('photographersContainer');
+    container.appendChild(nameElement);
+    container.appendChild(cityCountryElement);
+
+   
+
+
+  });
+
+
+
+
+  
 
 
 
@@ -113,7 +183,4 @@ link.addEventListener('click', event => {
 });
 
 //-------------------------------------------------------------------------
-
-
-
 
