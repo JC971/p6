@@ -1,3 +1,4 @@
+
 const url = window.location.href;
 console.log('url de la page est', url);
 let photographId = url.split("=")[1];
@@ -11,15 +12,15 @@ fetch('data/photographers.json')
     const photographer = data['photographers'];
     let photographCourant;
 
-    // on récupère les photos du photographe
+    // On récupère les photos du photographe
     for (let i = 0; i < media.length; i++) {
       if (media[i].photographerId == photographId) {
         portfolio.push(media[i]);
       }
     }
+   
 
-
-    // on cherche les informations du photographe
+    // On cherche les informations du photographe
     for (let i = 0; i < photographer.length; i++) {
       if (photographer[i].id == photographId && photographer[i].portrait !== undefined) {
         photographCourant = photographer[i];
@@ -29,9 +30,11 @@ fetch('data/photographers.json')
 
     const nameElement = document.createElement('h1');
     nameElement.innerHTML = photographCourant.name;
+
     const cityCountryElement = document.createElement('h3');
     cityCountryElement.innerHTML = `${photographCourant.city}, ${photographCourant.country}`;
 
+    // Création de l'élément image
     let image = document.createElement("img");
 
     // Récupérer l'élément contenant l'image
@@ -42,25 +45,32 @@ fetch('data/photographers.json')
       image.src = `assets/photographers/${photographCourant.portrait}`;
       image.alt = photographCourant.name;
 
-      photoPortraitElement.appendChild(image); // Ajouter l'image au conteneur approprié
+      // Ajouter l'image au conteneur approprié
+      photoPortraitElement.appendChild(image);
     } else {
       // L'URL de l'image du photographe est manquante ou invalide
       console.log("L'URL de l'image du photographe est manquante ou invalide");
     }
-    console.log(image);
     
+   
+    
+    // ajout code
+
+    const portfolioElement = document.getElementById('portfolio-container');
+    for (let i = 0; i < portfolio.length; i++){
+      //créer un élément pour chaque photo
+      let photoElement = document.createElement("img");
+      photoElement.src = `assets/images/${photographCourant.name}/${portfolio[i].image}`;
+      portfolioElement.appendChild(photoElement);
+    }
+
+    // fin ajout de code
 
     // Ajout des éléments au conteneur
     const container = document.getElementById('photographersContainer');
     container.appendChild(nameElement);
     container.appendChild(cityCountryElement);
-
-   
-
-
   });
-
-
 
 
 // Récupérer tous les liens 
