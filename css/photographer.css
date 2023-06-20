@@ -149,3 +149,7 @@ select {
     padding-top: 10px;
     object-fit: cover;
 }
+
+#portfolio-container video{
+    width: 600px;
+}
