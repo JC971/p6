@@ -10,9 +10,10 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items:center;
     height: 90px;
 }
+
 
 h1 {
     color: #901C1C;
@@ -24,6 +25,8 @@ h3{
 
 .logo {
     height:50px;
+    width: 15%;
+    border-radius: 0;
     margin-left: 100px;
 }
 

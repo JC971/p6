@@ -95,5 +95,37 @@ link.addEventListener('click', event => {
 
 });
 
-//-------------------------------------------------------------------------
+let selectedOption = document.getElementById('selectedOption');
+let options = document.getElementById('options');
+let dropdownOptions = Array.from(options.getElementsByClassName('option'));
 
+selectedOption.addEventListener('click', function() {
+    let display = options.style.display;
+    options.style.display = display === 'none' ? 'block' : 'none';
+ 
+});
+
+dropdownOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        selectedOption.innerHTML = this.textContent + ' ' + '&#9652;';
+        options.style.display = 'none';
+        // 
+        console.log('Trier par : ' + this.textContent);
+    });
+});
+
+
+
+//-------------------------------------------------------------------------
+let tab=[5,44,2,3,18,1,9,0,102]
+
+function compare(a, b) {
+    if (a < b)
+        return -1;
+    if (a > b)
+        return 1;
+    return 0;
+}
+
+let tabTrie = tab.sort(compare)
+console.log(tabTrie)

@@ -9,30 +9,41 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html">
+      <img  src="assets/images/logo.png" class="logo" />
+    </a>
     </header>
+
     <main id="main">
 
       <div class="photograph-header">
         <div class="container" id="photographersContainer" > </div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-        <div id="container-portrait">
-        <div id="photo-portrait"></div>
-
+          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+          <div id="container-portrait">
+          <div id="photo-portrait">
+          </div>
         </div>
 
-      </div>
-      <div class="tri"> 
-      <label for="photographe-info">Trier par</label>
 
-      <select name="photographe" id="info">
+      </div>
+      
+      <div class="container">
+        <div class="tri">
+          <h4>Trier par</h4>
+        </div>
+        <div class="dropdown">
+            <div id="selectedOption">Popularité <span class="chevron">&#9652;</span></div>
+            <div id="options" style="display:block;">
+                <div class="option">Popularité</div>
+                <div class="option">Date</div>
+                <div class="option">Titre</div>
+            </div>
+            
+        </div>
+        
+      </div>
     
-    <option value="populaire">Popularité</option>
-    <option value="date">Date</option>
-    <option value="Titre">Titre</option>
-   
-</select>
-</div>
+  </div>
 
       <div id="portfolio-container">
         
