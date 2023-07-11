@@ -1,5 +1,8 @@
-let tab=[5,44,2,3,18,1,9]
+const like=[]
 
+for (let i = 0; i < Media.length; i++){
+if(like[i])
+}
 function compare(a, b) {
     if (a < b)
         return -1;

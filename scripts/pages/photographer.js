@@ -1,8 +1,9 @@
 const url = window.location.href;
 console.log('url de la page est', url);
 let photographId = url.split("=")[1];
-
 console.log(photographId);
+
+
 fetch('data/photographers.json')
   .then(response => response.json())
   .then(data => {
@@ -10,6 +11,11 @@ fetch('data/photographers.json')
     const portfolio = [];
     //
     const mp4Files = [];
+    let tabLike = [];
+
+    const mediaTitle = [];
+
+
     const photographers = data['photographers'];
     let currentPhotographer;
 
@@ -17,14 +23,29 @@ fetch('data/photographers.json')
     for (let i = 0; i < media.length; i++) {
       if (media[i].photographerId == photographId) {
         portfolio.push(media[i]);
+       
 
         // Récupérer les vidéos du photographe
         if (media[i].video && media[i].video.endsWith('.mp4')) {
           mp4Files.push(media[i])
+         
         }
+        // pour récupérer les likes
+        if (media[i].likes) {
+          tabLike.push(media[i]);
+          
+        }
+
+        // pour récupérer le titre de chaque imge
+        if (media[i].title){ 
+          mediaTitle.push(media[i]);
+        }
+
       }
     }
-
+   console.log(mediaTitle)
+   
+    
     // Trouver le portrait du photographe
     for (let i = 0; i < photographers.length; i++) {
       if (photographers[i].id == photographId && photographers[i].portrait !== undefined) {
@@ -32,8 +53,6 @@ fetch('data/photographers.json')
         break;
       }
     }
-
-
     // Ajouter le nom du photographe 
     const nameElement = document.createElement('h1');
     nameElement.innerHTML = currentPhotographer.name;
@@ -52,10 +71,17 @@ fetch('data/photographers.json')
       image.src = `assets/photographers/${currentPhotographer.portrait}`;
       image.alt = currentPhotographer.name;
       photoPortraitElement.appendChild(image);
+      let likes = document.querySelector('like');
+     
+
     } else {
       console.log("L'URL de l'image du photographe est manquante ou invalide");
     }
 
+    // ajouter le titre à l'image du photographe
+
+    
+    portfolio.sort((a, b) => b.likes - a.likes);
     // Créer et ajouter les éléments du portfolio au DOM
     const portfolioElement = document.getElementById('portfolio-container');
     for (let i = 0; i < portfolio.length; i++) {
@@ -68,64 +94,63 @@ fetch('data/photographers.json')
         videoElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
         videoElement.controls = true;  // Ajouter des contrôles à la vidéo
         portfolioElement.appendChild(videoElement);
+      
       }
+
     }
-  });
-
-
-// Récupérer tous les liens 
-const links = document.querySelectorAll('a');
-
-
-// Ajoute d'un gestionnaire d'événements 
-links.forEach(link => {
-link.addEventListener('click', event => {
-  // Empêcher le comportement par défaut du lien
-  event.preventDefault();
    
-  // Récupérer l'ID du photographe à partir de l'élément HTML
-  const photographerIdent = link.id;
 
-  // Construire la nouvelle URL avec l'ID du photographe en tant que paramètre de requête
-  const newUrl = `https://photographer.html?id=${photographerIdent}`;
+    
+    let selectedOption = document.getElementById('selectedOption');
+    let options = document.getElementById('options');
+    let dropdownOptions = Array.from(options.getElementsByClassName('option'));
+
+    selectedOption.addEventListener('click', function () {
+      let display = options.style.display;
+      options.style.display = display === 'none' ? 'block' : 'none';
+
+
  
-  window.location.href = newUrl;
-});
+    });
+    //tri du tableau par likes
+    
+    let sortedTabLike = tabLike.sort((a, b) => b.likes - a.likes);
+    console.log(sortedTabLike)
 
 
-});
 
-let selectedOption = document.getElementById('selectedOption');
-let options = document.getElementById('options');
-let dropdownOptions = Array.from(options.getElementsByClassName('option'));
-
-selectedOption.addEventListener('click', function() {
-    let display = options.style.display;
-    options.style.display = display === 'none' ? 'block' : 'none';
- 
-});
-
-dropdownOptions.forEach(option => {
-    option.addEventListener('click', function() {
+    dropdownOptions.forEach(option => {
+      option.addEventListener('click', function () {
         selectedOption.innerHTML = this.textContent + ' ' + '&#9652;';
         options.style.display = 'none';
-        // 
-        console.log('Trier par : ' + this.textContent);
+        
+      });
+     
+        
     });
-});
+  });
+  
+   
+    // Récupérer tous les liens 
+    const links = document.querySelectorAll('a');
 
 
+    // Ajoute d'un gestionnaire d'événements 
+    links.forEach(link => {
+      link.addEventListener('click', event => {
+        // Empêcher le comportement par défaut du lien
+        event.preventDefault();
+   
+        // Récupérer l'ID du photographe à partir de l'élément HTML
+        const photographerIdent = link.id;
 
-//-------------------------------------------------------------------------
-let tab=[5,44,2,3,18,1,9,0,102]
+        // Construire la nouvelle URL avec l'ID du photographe en tant que paramètre de requête
+        const newUrl = `https://photographer.html?id=${photographerIdent}`;
+ 
+        window.location.href = newUrl;
+      });
 
-function compare(a, b) {
-    if (a < b)
-        return -1;
-    if (a > b)
-        return 1;
-    return 0;
-}
 
-let tabTrie = tab.sort(compare)
-console.log(tabTrie)
+    });
+
+

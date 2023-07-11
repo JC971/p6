@@ -1,0 +1,177 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/essai.css">
+    <title>Document</title>
+    </head>
+   
+<body>
+<div class="container"> 
+
+    <div id="conteneurPhoto" >
+        <img src="/assets/images/logo.png" alt="">
+    </div>
+    <div class="sous-titre">
+        <div class="sous-titre-title" ></div>
+        <div class="nbre-like">33</div>
+    </div>
+
+
+</div>
+
+<script>
+
+    let toto = document.getElementById('conteneurPhoto')
+    toto.innerHTML = `<div>
+        <img src='/assets/images/logo.png'>
+        
+        <h1>TOTO</h1>
+         <p>Like : 150</p></div >
+         <h3> le grand beau temps</h3>
+
+
+         `
+
+         console.log('toto')
+         console.log(toto)
+
+
+</script>
+</body>
+</html>
+
+
+    les image apparaissent dans portfolio-container
+    je dois ajouter à chaque image le titre de l'image le nombre de likes et un coeur
+    le titre se trouve dans le fichier json"title"
+    pour y accéder : data/media/title
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/essai.css">
+    <title>Document</title>
+    </head>
+
+    <!-- 
+
+<body>
+    <style>
+        .container {
+            border: 1px solid red;
+            width: 300px;
+        }
+
+        .card {
+            border: 1px solid green;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: stretch;
+            align-content: stretch;
+        }
+    </style>
+    <div id="root">
+    </div>
+</body>
+<script>
+    let b = document.querySelector('#root')
+    b.innerHTML = `
+    
+        <div class="container">
+            <div class="image">
+                <img src="img/iphone.jpg" alt="">
+            </div>
+            <div class="card">
+                <div class="titre">Ma photo</div>
+                <div class="likes">33 likes</div>
+            </div>
+        </div>
+    `
+
+</script>
+-->
+
+<body>
+    <style>
+        .container {
+            border: 1px solid red;
+            width: 300px;
+        }
+
+        .card {
+            border: 1px solid green;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: stretch;
+            align-content: stretch;
+        }
+    </style>
+    <div id="root">
+    </div>
+</body>
+<script>
+    let b = document.querySelector('#root')
+    b.innerHTML = `
+    
+        <div class="container">
+            <div class="image">
+                <img src="img/iphone.jpg" alt="">
+            </div>
+            <div class="card">
+                <div class="titre">Ma photo</div>
+                <div class="likes">33 likes</div>
+            </div>
+        </div>
+    `
+
+</script>
+
+
+
+
+
+<!-- 
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/essai.css">
+    <title>Document</title>
+    </head>
+
+
+<script>
+    let b = document.querySelector('#root')
+    b.innerHTML = `
+    
+        <div class="container">
+            <div class="image">
+                <img src="img/${photo.image}" alt="">
+            </div>
+            <div class="card">
+                <div class="titre">${photo.titre}</div>
+                <div class="likes">${photo.like} likes</div>
+            </div>
+        </div>
+    `
+
+</script>-->

@@ -148,7 +148,7 @@ img{
 label {
     font-family: sans-serif;
     font-size: 1rem;
-  padding-right: 10px;
+    padding-right: 10px;
     padding-left: 90px;
     
   
@@ -168,6 +168,10 @@ select {
 	align-content: stretch;
 }
 
+.portofolio-title{
+
+}
+
 #portfolio-container img{
     width: 30%;
     border-radius: 0;
@@ -178,7 +182,12 @@ select {
 }
 
 #portfolio-container video{
-    width: 600px;
+    width:30%;
+    height: 400px;
+    padding-bottom: 40px;
+    
+
+ 
 }
 .container{
 padding-left: 160px;
