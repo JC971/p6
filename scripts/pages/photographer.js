@@ -80,25 +80,88 @@ fetch('data/photographers.json')
 
     // ajouter le titre à l'image du photographe
 
-    
+    /*
     portfolio.sort((a, b) => b.likes - a.likes);
     // Créer et ajouter les éléments du portfolio au DOM
     const portfolioElement = document.getElementById('portfolio-container');
+
     for (let i = 0; i < portfolio.length; i++) {
+
       if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
+
         let photoElement = document.createElement("img");
         photoElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
         portfolioElement.appendChild(photoElement);
-      } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
-        let videoElement = document.createElement("video");
-        videoElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
-        videoElement.controls = true;  // Ajouter des contrôles à la vidéo
-        portfolioElement.appendChild(videoElement);
-      
-      }
+*/
+portfolio.sort((a, b) => b.likes - a.likes);
+const portfolioElement = document.getElementById('portfolio-container');
 
-    }
-   
+for (let i = 0; i < portfolio.length; i++) {
+  if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
+    let photoElement = document.createElement("div");
+    photoElement.classList.add("photo-item"); // Ajouter une classe CSS pour le style
+
+    //
+    
+    let imageElement = document.createElement("img");
+    imageElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
+    photoElement.appendChild(imageElement);
+
+    let titleElement = document.createElement("div");
+    titleElement.classList.add("photo-title"); // Ajouter une classe CSS pour le style
+    titleElement.innerText = portfolio[i].title;
+    photoElement.appendChild(titleElement);
+
+
+    let likesElement = document.createElement("div");
+    likesElement.classList.add("photo-likes"); // Ajouter une classe CSS pour le style
+    
+    let likesText = document.createTextNode(`${portfolio[i].likes} `);
+    likesElement.appendChild(likesText);
+    
+    let heartIcon = document.createElement("i");
+    heartIcon.classList.add("fas");
+    heartIcon.classList.add("fa-heart"); // Ceci est la classe pour l'icône de coeur en plein de FontAwesome
+    likesElement.appendChild(heartIcon);
+    
+    photoElement.appendChild(likesElement);
+    
+
+
+    portfolioElement.appendChild(photoElement);
+    
+
+  } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
+    let videoElement = document.createElement("div");
+    videoElement.classList.add("video-item");
+
+    let actualVideoElement = document.createElement("video");
+    actualVideoElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
+    actualVideoElement.controls = true; 
+    videoElement.appendChild(actualVideoElement);
+
+    let titleElement = document.createElement("div");
+    titleElement.classList.add("video-title");
+    titleElement.innerText = portfolio[i].title;
+    videoElement.appendChild(titleElement);
+
+    let likesElement = document.createElement("div");
+    likesElement.classList.add("video-likes");
+
+    let likesText = document.createTextNode(`${portfolio[i].likes} `);
+    likesElement.appendChild(likesText);
+
+    let heartIcon = document.createElement("i");
+    heartIcon.classList.add("fas");
+    heartIcon.classList.add("fa-heart");
+    likesElement.appendChild(heartIcon);
+
+    videoElement.appendChild(likesElement);
+
+    portfolioElement.appendChild(videoElement);
+  }
+}
+       
 
     
     let selectedOption = document.getElementById('selectedOption');
