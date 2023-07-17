@@ -188,6 +188,7 @@ select {
 
 .photo-item{
     width: 30%;
+    
 }
 
 .container{
@@ -260,6 +261,7 @@ display: flex;
     text-align: right;
     width: 50%;
     color: #901C1C;
+    cursor: pointer;
 }
 
 
@@ -268,3 +270,6 @@ display: flex;
 }
 
 
+.photo-likes{
+    cursor: pointer;
+}

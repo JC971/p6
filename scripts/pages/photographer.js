@@ -80,54 +80,58 @@ fetch('data/photographers.json')
 
     // ajouter le titre à l'image du photographe
 
-    /*
-    portfolio.sort((a, b) => b.likes - a.likes);
-    // Créer et ajouter les éléments du portfolio au DOM
-    const portfolioElement = document.getElementById('portfolio-container');
-
-    for (let i = 0; i < portfolio.length; i++) {
-
-      if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
-
-        let photoElement = document.createElement("img");
-        photoElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
-        portfolioElement.appendChild(photoElement);
-*/
+    
 portfolio.sort((a, b) => b.likes - a.likes);
 const portfolioElement = document.getElementById('portfolio-container');
 
 for (let i = 0; i < portfolio.length; i++) {
   if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
     let photoElement = document.createElement("div");
-    photoElement.classList.add("photo-item"); // Ajouter une classe CSS pour le style
+    photoElement.classList.add("photo-item");
 
     //
-    
+
     let imageElement = document.createElement("img");
     imageElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
     photoElement.appendChild(imageElement);
 
     let titleElement = document.createElement("div");
-    titleElement.classList.add("photo-title"); // Ajouter une classe CSS pour le style
+    titleElement.classList.add("photo-title"); 
     titleElement.innerText = portfolio[i].title;
     photoElement.appendChild(titleElement);
 
 
     let likesElement = document.createElement("div");
-    likesElement.classList.add("photo-likes"); // Ajouter une classe CSS pour le style
+    likesElement.classList.add("photo-likes"); 
     
     let likesText = document.createTextNode(`${portfolio[i].likes} `);
-    likesElement.appendChild(likesText);
+  //
+
     
+    
+    likesElement.appendChild(likesText);
+//
+    console.log('toto');
+    console.log(likesText)
+
+
+    //
     let heartIcon = document.createElement("i");
     heartIcon.classList.add("fas");
-    heartIcon.classList.add("fa-heart"); // Ceci est la classe pour l'icône de coeur en plein de FontAwesome
+    heartIcon.classList.add("fa-heart");
+
+    heartIcon.addEventListener("click", function () {
+      //pour augmenter de 1 chaque fois le nbre de likes
+      portfolio[i].likes++;
+      //permet de mettre à jour le nbre de likes
+      likesText.nodeValue = `${portfolio[i].likes} `;
+})
+
+
     likesElement.appendChild(heartIcon);
     
     photoElement.appendChild(likesElement);
     
-
-
     portfolioElement.appendChild(photoElement);
     
 
@@ -154,7 +158,12 @@ for (let i = 0; i < portfolio.length; i++) {
     let heartIcon = document.createElement("i");
     heartIcon.classList.add("fas");
     heartIcon.classList.add("fa-heart");
+
+
+    
     likesElement.appendChild(heartIcon);
+
+    
 
     videoElement.appendChild(likesElement);
 

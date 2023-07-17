@@ -175,3 +175,100 @@
     `
 
 </script>
+Yvon Huynh 10:12
+<body>
+    <style>
+        #like {
+            cursor: pointer;
+        }
+    </style>
+    <div id="page">
+        <div id="like">❤️<span>0</span></div>
+    </div>
+    <div class="global">❤️ Total<span> 0</span></div>
+</body>
+<script>
+    let a = document.getElementById('like')
+    // on verifie qu'on a choppé l'élément
+    //console.log(a)
+    // on fait un event listener et on test
+    a.addEventListener('click', function (e) {
+        //alert('clické')
+        //on prend le nombre courant de like
+        let elem = e.target
+        let span = elem.querySelector('span')
+        let nb = span.textContent
+        console.log('target', nb)
+        nb = nb + 1
+        
+    })
+
+    // 
+</script>
+
+<body>
+    <style>
+        #like {
+            cursor: pointer;
+        }
+    </style>
+    <div id="page">
+        <div id="like">❤️<span>0</span></div>
+    </div>
+    <div class="global">❤️ Total<span> 0</span></div>
+</body>
+<script>
+    let a = document.getElementById('like')
+    // on verifie qu'on a choppé l'élément
+    //console.log(a)
+    // on fait un event listener et on test
+    a.addEventListener('click', function (e) {
+        //alert('clické')
+        //on prend le nombre courant de like
+        let elem = e.target
+        let span = elem.querySelector('span')
+        let nb = span.textContent
+        console.log('target', nb)
+        nb = nb + 1
+        
+    })
+
+    // faut augmenter le total
+</script>
+Yvon Huynh 10:20
+<style>
+        .like {
+            cursor: pointer;
+        }
+    </style>
+    <div id="page">
+        <div class="like">❤️<span>0</span></div>
+        <div class="like">❤️<span>3</span></div>
+    </div>
+    <div id="global">❤️ Total<span> 3</span></div>
+</body>
+<script>
+    //délégation d'événement
+    let page = document.getElementById('page')
+    // on verifie qu'on a choppé l'élément
+    //console.log(a)
+    // on fait un event listener et on test
+    page.addEventListener('click', function (e) {
+        //alert('clické')
+        //on prend le nombre courant de like
+        let elem = e.target
+        let span = elem.querySelector('span')
+        let nb = span.textContent
+        console.log('target', nb)
+        nb++
+        span.textContent = nb
+        // on incrémente le total
+
+        //je dois ajouter les likes de toutes les classes like à l'id global
+
+        
+
+    })
+
+    // 
+</script>
