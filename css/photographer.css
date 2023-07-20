@@ -245,6 +245,7 @@ display: flex;
     text-align: right;
     width: 50%;
     color: #901C1C;
+    padding: 5px 0 20px 0;
 }
 
 
@@ -262,6 +263,7 @@ display: flex;
     width: 50%;
     color: #901C1C;
     cursor: pointer;
+    padding: 5px 0 20px 0;
 }
 
 
@@ -272,4 +274,64 @@ display: flex;
 
 .photo-likes{
     cursor: pointer;
+}
+
+
+ .modal header{
+    
+  
+   height: 190px;
+
+}
+
+
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .header-content h2{
+    margin: 0;
+  }
+
+
+  
+  #contact_modal .modal header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    
+  }
+ 
+.photographerName{
+    font-size: 64px;
+}
+
+#commentaire{
+    width: 100%;
+}
+
+label{
+    font-size: 32px;
+    padding-left: 0;
+}
+
+.total-likes{
+    width: 200px;
+    height: 80px;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color:rgba(219, 136, 118, 1);
+    padding: 15px;
+    border-radius: 10px;
+    width: 376px;
+    height: 89;
+   
+
 }

@@ -1,6 +1,7 @@
 const url = window.location.href;
 console.log('url de la page est', url);
 let photographId = url.split("=")[1];
+console.log('toto')
 console.log(photographId);
 
 
@@ -59,10 +60,31 @@ fetch('data/photographers.json')
     const container = document.getElementById('photographersContainer');
     container.appendChild(nameElement);
 
+// 
+
     // Ajouter la ville et le pays du photographe 
     const cityCountryElement = document.createElement('h3');
     cityCountryElement.innerHTML = `${currentPhotographer.city}, ${currentPhotographer.country}`;
     container.appendChild(cityCountryElement);
+
+    // 
+    // récupération de la modale
+    let modalHeader = document.querySelector('#contact_modal .modal header');
+
+// je crée du contenu html pour insérer le nom du photographe 
+modalHeader.innerHTML = `
+<div class="header-content">
+
+  <h2>Contactez-moi</h2>
+  
+  <div class="photographerName">${currentPhotographer.name}</div>
+
+</div>
+
+<img src="assets/icons/close.svg" onclick="closeModal()" />
+`;
+
+
 
     // Créer et ajouter l'image du photographe au DOM
     const photoPortraitElement = document.getElementById('photo-portrait');
@@ -83,6 +105,8 @@ fetch('data/photographers.json')
     
 portfolio.sort((a, b) => b.likes - a.likes);
 const portfolioElement = document.getElementById('portfolio-container');
+//
+    let total = 0;
 
 for (let i = 0; i < portfolio.length; i++) {
   if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
@@ -105,14 +129,11 @@ for (let i = 0; i < portfolio.length; i++) {
     likesElement.classList.add("photo-likes"); 
     
     let likesText = document.createTextNode(`${portfolio[i].likes} `);
-  //
-
+  
+    total =total+ portfolio[i].likes ;
     
-    
+   
     likesElement.appendChild(likesText);
-//
-    console.log('toto');
-    console.log(likesText)
 
 
     //
@@ -121,19 +142,34 @@ for (let i = 0; i < portfolio.length; i++) {
     heartIcon.classList.add("fa-heart");
 
     heartIcon.addEventListener("click", function () {
-      //pour augmenter de 1 chaque fois le nbre de likes
+      //pour augmenter de 1 chaque fois le nbre de likes de mes photos
       portfolio[i].likes++;
       //permet de mettre à jour le nbre de likes
       likesText.nodeValue = `${portfolio[i].likes} `;
-})
+    })
 
+    
+    //nombre total de likes création de la div 
+    globalElement = document.createElement('div');
+  
 
     likesElement.appendChild(heartIcon);
     
     photoElement.appendChild(likesElement);
     
     portfolioElement.appendChild(photoElement);
+
+    // sélection de la div total-likes pour lui insérer le nombre total de likes
+    let totalLikesElement=document.querySelector('.total-likes');
+    //totalLikesElement.innerHTML = total;
+    totalLikesElement.innerHTML = `<div class ="nombre-total-likes"> ${total} ❤️</div>
     
+    `
+
+    console.log('toto')
+    console.log(globalElement)
+
+
 
   } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
     let videoElement = document.createElement("div");
@@ -159,6 +195,10 @@ for (let i = 0; i < portfolio.length; i++) {
     heartIcon.classList.add("fas");
     heartIcon.classList.add("fa-heart");
 
+    heartIcon.addEventListener("click", function () {
+      portfolio[i].likes++;
+      likesText.nodeValue=`${portfolio[i].likes} `
+    })
 
     
     likesElement.appendChild(heartIcon);
@@ -169,6 +209,9 @@ for (let i = 0; i < portfolio.length; i++) {
 
     portfolioElement.appendChild(videoElement);
   }
+
+  
+
 }
        
 
@@ -201,6 +244,9 @@ for (let i = 0; i < portfolio.length; i++) {
         
     });
   });
+
+
+
   
    
     // Récupérer tous les liens 
