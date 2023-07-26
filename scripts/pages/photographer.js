@@ -1,7 +1,9 @@
+
 const url = window.location.href;
 console.log('url de la page est', url);
 let photographId = url.split("=")[1];
-console.log('toto')
+
+
 console.log(photographId);
 
 
@@ -15,11 +17,16 @@ fetch('data/photographers.json')
     let tabLike = [];
 
     const mediaTitle = [];
-
+    
+  //
+    const photoPrice = [];
 
     const photographers = data['photographers'];
+    
     let currentPhotographer;
 
+ 
+   
     // Récupérer les médias du photographe
     for (let i = 0; i < media.length; i++) {
       if (media[i].photographerId == photographId) {
@@ -42,18 +49,35 @@ fetch('data/photographers.json')
           mediaTitle.push(media[i]);
         }
 
+       
       }
+
     }
-   console.log(mediaTitle)
    
     
+    
     // Trouver le portrait du photographe
+
+
     for (let i = 0; i < photographers.length; i++) {
       if (photographers[i].id == photographId && photographers[i].portrait !== undefined) {
         currentPhotographer = photographers[i];
         break;
       }
+     
     }
+
+    for (let i = 0; i < photographers.length; i++){
+      if (photographers[i].price) {
+        photoPrice.push(photographers[i]);
+      }
+
+
+      console.log(photoPrice[i])
+    }
+    
+   
+
     // Ajouter le nom du photographe 
     const nameElement = document.createElement('h1');
     nameElement.innerHTML = currentPhotographer.name;
@@ -61,6 +85,7 @@ fetch('data/photographers.json')
     container.appendChild(nameElement);
 
 // 
+   
 
     // Ajouter la ville et le pays du photographe 
     const cityCountryElement = document.createElement('h3');
@@ -71,7 +96,7 @@ fetch('data/photographers.json')
     // récupération de la modale
     let modalHeader = document.querySelector('#contact_modal .modal header');
 
-// je crée du contenu html pour insérer le nom du photographe 
+// je crée du contenu html pour insérer le nom du photographe dans ma modale
 modalHeader.innerHTML = `
 <div class="header-content">
 
@@ -83,8 +108,6 @@ modalHeader.innerHTML = `
 
 <img src="assets/icons/close.svg" onclick="closeModal()" />
 `;
-
-
 
     // Créer et ajouter l'image du photographe au DOM
     const photoPortraitElement = document.getElementById('photo-portrait');
@@ -114,6 +137,7 @@ for (let i = 0; i < portfolio.length; i++) {
     photoElement.classList.add("photo-item");
 
     //
+  
 
     let imageElement = document.createElement("img");
     imageElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
@@ -148,12 +172,14 @@ for (let i = 0; i < portfolio.length; i++) {
       likesText.nodeValue = `${portfolio[i].likes} `;
     })
 
-    
+    //
+  
     //nombre total de likes création de la div 
     globalElement = document.createElement('div');
   
-
+//insertion de l'icone coeur
     likesElement.appendChild(heartIcon);
+
     
     photoElement.appendChild(likesElement);
     
@@ -163,13 +189,12 @@ for (let i = 0; i < portfolio.length; i++) {
     let totalLikesElement=document.querySelector('.total-likes');
     //totalLikesElement.innerHTML = total;
     totalLikesElement.innerHTML = `<div class ="nombre-total-likes"> ${total} ❤️</div>
+    <div class= "price"></div>
     
     `
 
-    console.log('toto')
-    console.log(globalElement)
-
-
+    
+   
 
   } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
     let videoElement = document.createElement("div");
@@ -198,8 +223,11 @@ for (let i = 0; i < portfolio.length; i++) {
     heartIcon.addEventListener("click", function () {
       portfolio[i].likes++;
       likesText.nodeValue=`${portfolio[i].likes} `
-    })
-
+    }
+    //
+      
+    )
+   
     
     likesElement.appendChild(heartIcon);
 
@@ -212,9 +240,13 @@ for (let i = 0; i < portfolio.length; i++) {
 
   
 
-}
-       
 
+    }
+    
+  
+    
+   
+   
     
     let selectedOption = document.getElementById('selectedOption');
     let options = document.getElementById('options');
@@ -246,7 +278,7 @@ for (let i = 0; i < portfolio.length; i++) {
   });
 
 
-
+ 
   
    
     // Récupérer tous les liens 
@@ -270,5 +302,6 @@ for (let i = 0; i < portfolio.length; i++) {
 
 
     });
+
 
 
