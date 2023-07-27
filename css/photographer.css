@@ -237,6 +237,7 @@ display: flex;
    display: inline-block;
    width: 50%;
    color: #901C1C;
+   font-size: 24px;
     
 }
 
@@ -245,6 +246,7 @@ display: flex;
     text-align: right;
     width: 50%;
     color: #901C1C;
+    font-size: 24px;
     padding: 5px 0 20px 0;
 }
 
@@ -254,6 +256,7 @@ display: flex;
     display: inline-block;
     width: 50%;
     color: #901C1C;
+    font-size: 24px;
      
  }
 
@@ -320,7 +323,7 @@ label{
     padding-left: 0;
 }
 
-.total-likes{
+#total-likes{
     width: 200px;
     height: 80px;
     text-align: right;
@@ -335,3 +338,4 @@ label{
    
 
 }
+
