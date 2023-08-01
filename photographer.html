@@ -10,9 +10,10 @@
   </head>
   <body>
     <header>
-      <a href="index.html">
-      <img  src="assets/images/logo.png" class="logo" />
+      <a class="logo" href="/index.html">
+      <img  src="assets/images/logo.png"  />
     </a>
+  
     
     </header>
 
@@ -52,7 +53,12 @@
   </div>
 <div class="portfolio"> 
       <div id="portfolio-container"> 
-        <div id="total-likes"></div>
+         
+        <div id="total-likes">
+          
+
+          </div>
+        </div>
         
       </div>
 </div>
@@ -91,7 +97,25 @@
    <script src="scripts/utils/contactForm.js"></script>
    <script src="scripts/pages/photographer.js" ></script>
    
-
-  
   </body>
 </html>
+<!-- 
+let totalLikesElement = document.querySelector('#total-likes');
+let total = 0;
+
+
+for (let i = 0; i < portfolio.length; i++) {
+  // Your existing loop code...
+}
+
+// Creation and insertion of the dayPrice element
+let dayPrice = document.createElement("div");
+dayPrice.classList.add("rate");
+dayPrice.innerHTML = `${photographerPrice}`;
+totalLikesElement.appendChild(dayPrice);
+
+// Update the totalLikesElement with the total
+totalLikesElement.innerHTML += `${total} ❤️`;
+
+
+-->
