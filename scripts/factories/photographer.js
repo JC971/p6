@@ -29,7 +29,7 @@ function photographerFactory(data) {
       h2.textContent = name;
       h3.textContent = `${city}, ${country}`; // Utilisation d'un template string pour la concaténation
       p.textContent = tagline;
-      h4.textContent = `${price} €`;
+      h4.textContent = `${price} € /jour`;
      
       article.appendChild(a);
       article.appendChild(h2);

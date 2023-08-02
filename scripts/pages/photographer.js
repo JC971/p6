@@ -11,26 +11,23 @@ let totalLikesElement=document.getElementById('total-likes');
 fetch('data/photographers.json')
   .then(response => response.json())
   .then(data => {
-
-    const media = data['media'];
-    const portfolio = [];
+    let media = data['media'];
+    let photographers = data['photographers'];
     
+    let portfolio = [];
     const mp4Files = [];
     let tabLike = [];
     const mediaTitle = [];
     const photoPrice = [];
-    const photographers = data['photographers'];
     
     let currentPhotographer;
 
-    
-   
-    // Récupérer les médias du photographe
+    // Récupérer les médias du photographe dans un tableau
     for (let i = 0; i < media.length; i++) {
       if (media[i].photographerId == photographId) {
         portfolio.push(media[i]);
        
-        // Récupérer les vidéos du photographe
+        // Récupérer les vidéos du photographe mp4
         if (media[i].video && media[i].video.endsWith('.mp4')) {
           mp4Files.push(media[i])
         }
@@ -46,7 +43,7 @@ fetch('data/photographers.json')
         }
       }
     };
-   
+
     // Trouver le portrait du photographe
     for (let i = 0; i < photographers.length; i++) {
       if (photographers[i].id == photographId && photographers[i].portrait !== undefined) {
@@ -79,8 +76,6 @@ fetch('data/photographers.json')
     console.log("Aucun photographe trouvé avec l'ID ", photographId);
     };
 
-//
-
     // Ajouter le nom du photographe 
     const nameElement = document.createElement('h1');
     nameElement.innerHTML = currentPhotographer.name;
@@ -91,11 +86,19 @@ fetch('data/photographers.json')
     cityCountryElement.innerHTML = `${currentPhotographer.city}, ${currentPhotographer.country}`;
     container.appendChild(cityCountryElement);
 
+    // ajouter la tagline du photographe
+    const taglineElement = document.createElement('div');
+    taglineElement.classList.add('tagline');
+    taglineElement.innerHTML = `${currentPhotographer.tagline}`;
+    container.appendChild(taglineElement);
+
+
     // je recupère la modale
     let modalHeader = document.querySelector('#contact_modal .modal header');
 
-// je crée du contenu html pour insérer le nom du photographe dans ma modale
-  modalHeader.innerHTML = `
+    // je crée du contenu html pour insérer le nom du photographe dans ma modale
+  
+    modalHeader.innerHTML = `
   <div class="header-content">
 
   <h2>Contactez-moi</h2>
@@ -123,7 +126,6 @@ fetch('data/photographers.json')
     
     };
 
-    
 
     //je classe les images par nombre de likes
   portfolio.sort((a, b) => b.likes - a.likes);
@@ -135,7 +137,7 @@ fetch('data/photographers.json')
     //le compteur est à zéro
     let total = 0;
 
-
+// boucle images jpg ou mp4
     for (let i = 0; i < portfolio.length; i++) {
 
   // si les images du portfolio sont en jpg 
@@ -167,7 +169,6 @@ fetch('data/photographers.json')
     heartIcon.classList.add("fas");
     heartIcon.classList.add("fa-heart");
       
-
   // augmenter le nombre de likes à chaque click
       heartIcon.addEventListener("click", function () {
         //pour augmenter de 1 chaque fois le nbre de likes de mes photos
@@ -177,35 +178,24 @@ fetch('data/photographers.json')
 
         total++;
         
-        totalLikesElement.innerHTML = `${total} ❤️`;
+        totalLikesCount.innerHTML = `${total} ❤️`;
 
-        
-            
-    
-      
       });
-      // fin de la fonction qui augmente le nombre de likes au click
         
-      
+      // fin de la fonction qui augmente le nombre de likes au click pour les photos
         
-        
-  
     // création de la div nombre total de likes
     globalElement = document.createElement('div');
-  
+        
     //insertion de l'icone coeur
     likesElement.appendChild(heartIcon);
 
-    
     photoElement.appendChild(likesElement);
     
     portfolioElement.appendChild(photoElement);
         
-        let dayPrice = document.createElement("div");
-
-      
     
-//si le format est du mp4 alors
+//dans les cas ou le format est en mp4
   } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
     let videoElement = document.createElement("div");
     videoElement.classList.add("video-item");
@@ -231,9 +221,10 @@ fetch('data/photographers.json')
       heartIcon.classList.add("fa-heart");
       
     // fonction au click
+        
       heartIcon.addEventListener("click", function () {
         portfolio[i].likes++;
-        // incrémentation des likes de la photo
+        // incrémentation des likes des videos
      
         likesText.nodeValue = `${portfolio[i].likes}`;
         
@@ -241,11 +232,11 @@ fetch('data/photographers.json')
         total++;
 
         //pour mettre à jour le nombre total de click
-        totalLikesElement.innerHTML = `${total} ❤️`;
+        totalLikesCount.innerHTML = `${total} ❤️`;
 
       });
       // fin de la fonction qui augmente le nombre de likes au click
-    
+     
     likesElement.appendChild(heartIcon);
 
     videoElement.appendChild(likesElement);
@@ -256,11 +247,21 @@ fetch('data/photographers.json')
       }
       // fin format mp4
     }; // fin de la boucle
-
-
     
-    // le nombre total de likes est mis à jour 
-    totalLikesElement.innerHTML = `${total} ❤️`;
+
+    let dayPrice = document.createElement("div");
+dayPrice.classList.add("rate");
+dayPrice.innerHTML = `${photographerPrice}`;
+totalLikesElement.appendChild(dayPrice);
+
+    let totalLikesCount = document.createElement("div");
+    totalLikesCount.className = ('total-likes__number');
+totalLikesCount.innerHTML = ` ${total} ❤️`;
+totalLikesElement.appendChild(totalLikesCount);
+    let rateElement = document.querySelector('.rate');
+    rateElement.textContent = 'Prix  ' + rateElement.textContent;
+    
+    
     
     let selectedOption = document.getElementById('selectedOption');
     let options = document.getElementById('options');
@@ -270,12 +271,14 @@ fetch('data/photographers.json')
     selectedOption.addEventListener('click', function () {
       let display = options.style.display;
       options.style.display = display === 'none' ? 'block' : 'none';
+
     });
 
 
     //tri du tableau par likes
     
     let sortedTabLike = tabLike.sort((a, b) => b.likes - a.likes);
+
    
     dropdownOptions.forEach(option => {
       option.addEventListener('click', function () {
@@ -287,7 +290,7 @@ fetch('data/photographers.json')
   });
 
     // Récupérer tous les liens 
-    //
+    
 const links = document.querySelectorAll('a');
 
 // Ajoute d'un gestionnaire d'événements 
