@@ -131,9 +131,9 @@ fetch('data/photographers.json')
   portfolio.sort((a, b) => b.likes - a.likes);
 
   //calcul total likes
-    let totalLikesElement = document.querySelector('#total-likes');
-    let totalLikesInnerElement = document.createElement('div');
-    totalLikesElement.appendChild(totalLikesInnerElement);
+    //let totalLikesInnerElement = document.createElement('div');
+    //totalLikesElement.classList.add('compteur');
+    //totalLikesElement.appendChild(totalLikesInnerElement);
     //le compteur est à zéro
     let total = 0;
 
@@ -178,7 +178,8 @@ fetch('data/photographers.json')
 
         total++;
         
-        totalLikesCount.innerHTML = `${total} ❤️`;
+        totalLikesCount.innerHTML = `${total}x  ❤️ ❤️xx`;
+        
 
       });
         
@@ -242,26 +243,32 @@ fetch('data/photographers.json')
     videoElement.appendChild(likesElement);
 
         portfolioElement.appendChild(videoElement);
-        
-    
       }
-      // fin format mp4
+
+      
     }; // fin de la boucle
     
-
+// création du prix du photographe par jour
     let dayPrice = document.createElement("div");
 dayPrice.classList.add("rate");
-dayPrice.innerHTML = `${photographerPrice}`;
-totalLikesElement.appendChild(dayPrice);
+dayPrice.innerHTML = `${photographerPrice} € / jour`;
 
+// creation dinitiale du nombre total de likes
     let totalLikesCount = document.createElement("div");
-    totalLikesCount.className = ('total-likes__number');
-totalLikesCount.innerHTML = ` ${total} ❤️`;
-totalLikesElement.appendChild(totalLikesCount);
+totalLikesCount.className = 'total-likes__number';
+    let emojiElement = document.createElement("span");
+emojiElement.id = "emoji";
+    emojiElement.innerHTML = "";
+    // passer l'emoji en noir
+emojiElement.style.filter = "brightness(0)";
+totalLikesCount.innerHTML = `${total} `;
+totalLikesCount.appendChild(emojiElement);
+
+    
     let rateElement = document.querySelector('.rate');
-    rateElement.textContent = 'Prix  ' + rateElement.textContent;
-    
-    
+    totalLikesElement.appendChild(totalLikesCount);
+    totalLikesElement.appendChild(dayPrice);
+   
     
     let selectedOption = document.getElementById('selectedOption');
     let options = document.getElementById('options');
