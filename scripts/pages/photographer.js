@@ -178,7 +178,7 @@ fetch('data/photographers.json')
 
         total++;
         
-        totalLikesCount.innerHTML = `${total}x  ❤️ ❤️xx`;
+        totalLikesCount.innerHTML = `${total} 🖤 `;
         
 
       });
@@ -232,8 +232,8 @@ fetch('data/photographers.json')
         //pour incrémenter le total défini dans la variable total
         total++;
 
-        //pour mettre à jour le nombre total de click
-        totalLikesCount.innerHTML = `${total} ❤️`;
+        //pour mettre à jour le nombre total de click mp4
+        totalLikesCount.innerHTML = `${total} 🖤 `;
 
       });
       // fin de la fonction qui augmente le nombre de likes au click
@@ -259,9 +259,8 @@ totalLikesCount.className = 'total-likes__number';
     let emojiElement = document.createElement("span");
 emojiElement.id = "emoji";
     emojiElement.innerHTML = "";
-    // passer l'emoji en noir
-emojiElement.style.filter = "brightness(0)";
-totalLikesCount.innerHTML = `${total} `;
+//emojiElement.style.filter = "brightness(0)";
+totalLikesCount.innerHTML = `${total} 🖤`;
 totalLikesCount.appendChild(emojiElement);
 
     
