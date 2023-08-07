@@ -4,7 +4,8 @@ console.log('url de la page est', url);
 let photographId = url.split("=")[1];
 const container = document.getElementById('photographersContainer');
 const portfolioElement = document.getElementById('portfolio-container');
-let totalLikesElement=document.getElementById('total-likes');
+let totalLikesElement = document.getElementById('total-likes');
+
 
 
 // je récupère les données
@@ -130,14 +131,20 @@ fetch('data/photographers.json')
     //je classe les images par nombre de likes
   portfolio.sort((a, b) => b.likes - a.likes);
 
-  //calcul total likes
-    //let totalLikesInnerElement = document.createElement('div');
-    //totalLikesElement.classList.add('compteur');
-    //totalLikesElement.appendChild(totalLikesInnerElement);
-    //le compteur est à zéro
+ 
     let total = 0;
 
-// boucle images jpg ou mp4
+
+    function openModale(imageSrc) {
+      const modale = document.getElementsByClassName('lightbox-modal')[0];
+      console.log("modale: ", modale)
+      const modalImage = modale.querySelector("#modale-image");
+      modalImage.src = imageSrc;
+      modale.style.display = 'block';
+    }
+
+
+// boucle images et vidéos
     for (let i = 0; i < portfolio.length; i++) {
 
   // si les images du portfolio sont en jpg 
@@ -147,7 +154,15 @@ fetch('data/photographers.json')
     photoElement.classList.add("photo-item");
 
     let imageElement = document.createElement("img");
-    imageElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
+        imageElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
+
+        //ecouteur d'évènement pour ouvrir la modale
+        imageElement.addEventListener('click', function () {
+          
+          openModale(imageElement.src);
+
+        });
+
     photoElement.appendChild(imageElement);
 
     let titleElement = document.createElement("div");
@@ -182,7 +197,7 @@ fetch('data/photographers.json')
         
 
       });
-        
+      
       // fin de la fonction qui augmente le nombre de likes au click pour les photos
         
     // création de la div nombre total de likes
@@ -319,5 +334,7 @@ links.forEach(link => {
       window.location.href = newUrl;
     }
   })
+
+
 });
 
