@@ -3,6 +3,7 @@
   <head>
     <link href="css/photographer.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/lightbox.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -24,30 +25,22 @@
         <div class="container" id="photographersContainer" > </div>
           <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
           <div id="container-portrait">
+            
+
           <div id="photo-portrait">
           </div>
         </div>
       </div>
-      
-      <div class="container">
-        <div class="tri">
-          <h4>Trier par</h4>
-        </div>
-        <div class="dropdown">
-            <div id="selectedOption">Popularité <span class="chevron">&#9652;</span></div>
-            <div id="options" style="display:block;">
-                <div class="option" id="option-popularite"></div>
-                <div class="option">Date</div>
-                <div class="option">Titre</div>
-            </div>
-            
-        </div>
-        
-      </div>
-    
-  </div>
+
+       <div class="container-dropdown">
+        <div class="btn" id="date">Date</div>
+        <div class="btn" id="pop">Popularité</div>
+        <div class="btn" id="titre">Titre</div>
+    </div>
+
 <div class="portfolio"> 
     <div id="portfolio-container"> 
+      
         <div id="total-likes">
           
 
@@ -59,10 +52,6 @@
 <div class="lightbox-modal">
   <div class="lightbox-container">
       <div class="lightbox-image-container">
-        
-          
-          
-
           <button class="lightbox-close"></button>
           <button class="lightbox-next"></button> 
           <button class="lightbox-previous"></button>
@@ -109,4 +98,5 @@
    <script src="scripts/pages/lightbox.js"></script>
    
   </body>
+  
 </html>

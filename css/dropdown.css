@@ -1,0 +1,14 @@
+.container-dropdown{
+    
+            border: solid 1px rgb(255, 0, 0);
+            width: 115px;
+            height: 125px;
+}
+
+ .btn {
+            border: solid 1px black;
+            margin: 2px;
+            width: 100px;
+            cursor: pointer;
+            caret-color: transparent;
+        }

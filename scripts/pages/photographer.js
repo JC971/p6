@@ -3,7 +3,12 @@ console.log('url de la page est', url);
 let photographId = url.split("=")[1];
 const container = document.getElementById('photographersContainer');
 const portfolioElement = document.getElementById('portfolio-container');
-let totalLikesElement = document.getElementById('total-likes');
+
+  let totalLikesElement = document.getElementById('total-likes');
+
+console.log('con')
+console.log(totalLikesElement);
+console.log('alors')
 
 // je récupère les données
 fetch('data/photographers.json')
@@ -108,37 +113,121 @@ fetch('data/photographers.json')
     
     };
 
-    let tri = 'like';
-
-    
-    if (tri == 'titre') {
-    portfolio.sort((a, b) => {
-        // logique de tri
-        if (a.title > b.title) { return 1 }
-        if (a.title< b.title) { return -1 }
-    })
-    };
-    
-
-    if (tri == 'like') {
-        portfolio.sort((a, b) => {
-      // logique de tri
-      if (a.likes > b.likes) { return -1 }
-      if (a.likes < b.likes) { return 1 }
-  })
-    };
-    
-    if (tri == 'date') {
-      portfolio.sort((a, b) => {
-        if (a.date > b.date) { return 1 }
-        if(a.date<b.date){return -1}
-  })
+    //DROPDOWN
+    // function
+  function sortPortfolioByDate() {
+    portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
+function sortPortfolioByPopularity() {
+    portfolio.sort((a, b) => b.likes - a.likes);
+}
+
+function sortPortfolioByTitle() {
+    portfolio.sort((a, b) => a.title.localeCompare(b.title));
+}
+
+function displayPortfolio() {
+    const portfolioContainer = document.querySelector('#portfolio-container');
+    portfolioContainer.innerHTML = '';
+    
+    let total = 0;
+
+    for (let i = 0; i < portfolio.length; i++) {
+        total += portfolio[i].likes;
+        let mediaElement;
+        let type;
+
+        if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
+            mediaElement = document.createElement("img");
+            mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
+            type = 'image';
+        } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
+            mediaElement = document.createElement("video");
+            mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
+            mediaElement.controls = true;
+            type = 'video';
+        }
+
+        if (mediaElement) {
+            let containerElement = document.createElement("div");
+            containerElement.classList.add(type === 'image' ? "photo-item" : "video-item");
+
+            mediaElement.addEventListener('click', function () {
+                openModale(mediaElement.src, type, i);
+            });
+            containerElement.appendChild(mediaElement);
+
+            let titleElement = document.createElement("div");
+            titleElement.classList.add(type + "-title");
+            titleElement.innerText = portfolio[i].title;
+            containerElement.appendChild(titleElement);
+
+            let likesElement = document.createElement("div");
+            likesElement.classList.add(type + "-likes");
+
+            let likesText = document.createTextNode(`${portfolio[i].likes} `);
+            likesElement.appendChild(likesText);
+
+            let heartIcon = document.createElement("i");
+            heartIcon.classList.add("fas");
+            heartIcon.classList.add("fa-heart");
+
+            heartIcon.addEventListener("click", function () {
+                portfolio[i].likes++;
+                likesText.nodeValue = `${portfolio[i].likes} `;
+                
+              total++;
+              
+                if (totalLikesCount) {
+                    totalLikesCount.innerHTML = `${total} 🖤`;
+                }
+            });
+
+            likesElement.appendChild(heartIcon);
+            containerElement.appendChild(likesElement);
+            portfolioContainer.appendChild(containerElement);
+      }
       
-    
-   
-    
+  }
+
+    // je crée et j'ajoute le nombre total de likes
+    let totalLikesCount = document.createElement("div");
+    //totalLikesCount.className = 'total-likes__number';
+    totalLikesCount.id="total-likes"
+    totalLikesCount.innerHTML = `${total} 🖤 `;
+    portfolioContainer.appendChild(totalLikesCount);
+  //totalLikesElement.appendChild(totalLikesCount);
+  
+  let dayPrice = document.createElement("div");
+  dayPrice.classList.add("rate");
+  dayPrice.innerHTML = `${photographerPrice} € / jour`;
+  totalLikesElement.appendChild(dayPrice);
+ 
+  console.log(dayPrice);
+}
+
+document.getElementById('date').addEventListener('click', () => {
+    sortPortfolioByDate();
+    displayPortfolio();
+});
+
+document.getElementById('pop').addEventListener('click', () => {
+    sortPortfolioByPopularity();
+    displayPortfolio();
+});
+
+document.getElementById('titre').addEventListener('click', () => {
+    sortPortfolioByTitle();
+    displayPortfolio();
+});
+
+// Initialisation du tri par défaut et affichage du portfolio
+sortPortfolioByDate();
+displayPortfolio();
+
+
+  
  //initialisation de la variable pour stocker la somme totale des likes init à 0
     let total = 0;
      
@@ -223,7 +312,6 @@ fetch('data/photographers.json')
    }
    
 }
-
     //fonction pour revenir en arrière
 function previousMedia() {
   if (currentMediaIndex > 0) {
@@ -242,140 +330,12 @@ function previousMedia() {
     // fermeture de la modale au click 
     document.querySelector('.lightbox-close').addEventListener('click', closeModale);
     
-
-
-
-      // boucle images et vidéos
-      for (let i = 0; i < portfolio.length; i++) {
-
-        // si les images du portfolio sont au format jpg 
-        if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
-      
-          let photoElement = document.createElement("div");
-          photoElement.classList.add("photo-item");
-
-          let imageElement = document.createElement("img");
-          imageElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
-
-          //ecouteur d'évènement pour ouvrir la modale au click sur une image
-          imageElement.addEventListener('click', function () {
-            openModale(imageElement.src, 'image', i);
-          
-          });
-
-          photoElement.appendChild(imageElement);
-
-          let titleElement = document.createElement("div");
-          titleElement.classList.add("photo-title");
-          titleElement.innerText = portfolio[i].title;
-          photoElement.appendChild(titleElement);
-
-          let likesElement = document.createElement("div");
-          likesElement.classList.add("photo-likes");
-    
-          let likesText = document.createTextNode(`${portfolio[i].likes} `);
-  
-          total += portfolio[i].likes;
-    
-          likesElement.appendChild(likesText);
-
-          //je déclare les icones
-          let heartIcon = document.createElement("i");
-          heartIcon.classList.add("fas");
-          heartIcon.classList.add("fa-heart");
-      
-          // augmenter le nombre de likes à chaque click
-          heartIcon.addEventListener("click", function () {
-            //pour augmenter de 1 chaque fois le nbre de likes de mes photos
-            portfolio[i].likes++;
-            //permet de mettre à jour le nbre de likes
-            likesText.nodeValue = `${portfolio[i].likes} `;
-
-            total++;
-        
-            totalLikesCount.innerHTML = `${total} 🖤 `;
-        
-
-          });
-      
-          // fin de la fonction qui augmente le nombre de likes au click pour les photos
-        
-          // création de la div nombre total de likes
-          globalElement = document.createElement('div');
-        
-          //insertion de l'icone coeur
-          likesElement.appendChild(heartIcon);
-
-          photoElement.appendChild(likesElement);
-    
-          portfolioElement.appendChild(photoElement);
-        
-    
-          //si les images du portfolio sont au format mp4
-        } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
-          let videoElement = document.createElement("div");
-          videoElement.classList.add("video-item");
-        
-
-          let actualVideoElement = document.createElement("video");
-          actualVideoElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
-          actualVideoElement.controls = true;
-          videoElement.appendChild(actualVideoElement);
-        
-          //ecouteur pour les vidéos au format mp4
-        
-          actualVideoElement.addEventListener('click', function () {
-            openModale(actualVideoElement.src, 'video',i);
-          
-          });
-
-        
-          let titleElement = document.createElement("div");
-          titleElement.classList.add("video-title");
-          titleElement.innerText = portfolio[i].title;
-          videoElement.appendChild(titleElement);
-
-          let likesElement = document.createElement("div");
-          likesElement.classList.add("video-likes");
-
-          let likesText = document.createTextNode(`${portfolio[i].likes} `);
-          likesElement.appendChild(likesText);
-
-          let heartIcon = document.createElement("i");
-          heartIcon.classList.add("fas");
-          heartIcon.classList.add("fa-heart");
-      
-          // fonction au click
-        
-          heartIcon.addEventListener("click", function () {
-            portfolio[i].likes++;
-            // incrémentation des likes des videos
-     
-            likesText.nodeValue = `${portfolio[i].likes}`;
-        
-            //pour incrémenter le total défini dans la variable total
-            total++;
-
-            //pour mettre à jour le nombre total de click mp4
-            totalLikesCount.innerHTML = `${total} 🖤 `;
-
-          });
-          // fin de la fonction qui augmente le nombre de likes au click
-        
-          likesElement.appendChild(heartIcon);
-
-          videoElement.appendChild(likesElement);
-
-          portfolioElement.appendChild(videoElement);
-        }
-
-      
-      }; // fin de la boucle
-    
+/*
       // création du prix du photographe par jour
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
-      dayPrice.innerHTML = `${photographerPrice} € / jour`;
+    dayPrice.innerHTML = `${photographerPrice} € / jour`;
+    console.log("dayPrice créé", dayPrice);
 
       // creation dinitiale du nombre total de likes
       let totalLikesCount = document.createElement("div");
@@ -383,43 +343,28 @@ function previousMedia() {
       let emojiElement = document.createElement("span");
       emojiElement.id = "emoji";
       emojiElement.innerHTML = "";
-      //emojiElement.style.filter = "brightness(0)";
+     
       totalLikesCount.innerHTML = `${total} 🖤`;
       totalLikesCount.appendChild(emojiElement);
+     
+    */
 
+        
+   
+      
+ 
     
-      let rateElement = document.querySelector('.rate');
-      totalLikesElement.appendChild(totalLikesCount);
-      totalLikesElement.appendChild(dayPrice);
+    let rateElement = document.querySelector('.rate');
+    
+  })
    
     
-      let selectedOption = document.getElementById('selectedOption');
-      let options = document.getElementById('options');
-      let dropdownOptions = Array.from(options.getElementsByClassName('option'));
 
+      
 
-      selectedOption.addEventListener('click', function () {
-        let display = options.style.display;
-        options.style.display = display === 'none' ? 'block' : 'none';
-
-      });
-
-
-      //tri du tableau par likes
-    
-    
-    
+    ;
    
-   
-      dropdownOptions.forEach(option => {
-        option.addEventListener('click', function () {
-          selectedOption.innerHTML = this.textContent + ' ' + '&#9652;';
-          options.style.display = 'none';
-        })
-      });
     
-    });
-
     // Récupérer tous les liens 
     
     const links = document.querySelectorAll('a');
@@ -446,6 +391,8 @@ function previousMedia() {
       })
 
 
+      
+
     });
-  ;
+  
   

@@ -81,10 +81,7 @@ body{
   }
   .lightbox-next, .lightbox-previous {
     display: inline-block;
-    width: 100px; /* or any desired size */
-    height: 50px; /* or any desired size */
-   
-    color: #fff; /* white text to contrast the black background */
+    width: 100px;
 }
 
   

@@ -141,10 +141,6 @@ img{
 	align-content: stretch;
     background-color: #FAFAFA;
     height: 313px;
-    
-    
-
-
 }
 
 #photographersContainer{
@@ -225,6 +221,19 @@ display: flex;
     
 }
 
+.dropdown-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.dropdown-menu span{
+    padding: 10px 0;
+    border-top: 2px solid white;
+    width: 100%;
+}
+
 #options {
     display: none;
     position: absolute;
@@ -235,20 +244,16 @@ display: flex;
     z-index: 1;
     
 }
+.select{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+}
 
 
-#selectedOption{
-   color: white;
-   padding: 15px 16px;
-  
-  
-    
-}
-.option {
-    padding: 15px 16px;
-    z-index: 1;
-    border-radius: 15px;
-}
+
+
 
 
 .photo-title{
@@ -350,13 +355,14 @@ label{
     padding: 15px;
     border-radius: 10px;
     width: 376px;
-    height: 89;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: baseline;
     align-content: stretch;
+    border: solid red 4px;
+    z-index: 9999;
 }
 
 .rate{
