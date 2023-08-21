@@ -86,20 +86,19 @@ fetch('data/photographers.json')
     // je crée du contenu html pour insérer le nom du photographe dans ma modale
   
     modalHeader.innerHTML = `
-  <div class="header-content">
+      <div class="header-content">
 
-  <h2>Contactez-moi</h2>
+      <h2>Contactez-moi</h2>
   
-  <div class="photographerName">${currentPhotographer.name}</div>
+      <div class="photographerName">${currentPhotographer.name}</div>
 
-  </div>
+      </div>
 
   <img src="assets/icons/close.svg" onclick="closeModal()" />
 `;
 
     // Créer et ajouter l'image du photographe au DOM
     const photoPortraitElement = document.getElementById('photo-portrait');
-
     let image = document.createElement("img");
 
     if (currentPhotographer.portrait !== undefined && typeof currentPhotographer.portrait === 'string') {
@@ -115,120 +114,154 @@ fetch('data/photographers.json')
 
     //DROPDOWN
     // function
-  function sortPortfolioByDate() {
-    portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
-}
+    function sortPortfolioByDate() {
+      portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
 
-function sortPortfolioByPopularity() {
-    portfolio.sort((a, b) => b.likes - a.likes);
-}
-
-function sortPortfolioByTitle() {
-    portfolio.sort((a, b) => a.title.localeCompare(b.title));
-}
-
-function displayPortfolio() {
-    const portfolioContainer = document.querySelector('#portfolio-container');
-    portfolioContainer.innerHTML = '';
+    function sortPortfolioByPopularity() {
+      portfolio.sort((a, b) => b.likes - a.likes);
+    }
     
-    let total = 0;
+    
 
-    for (let i = 0; i < portfolio.length; i++) {
+    function sortPortfolioByTitle() {
+      portfolio.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    //
+    function displayPortfolio() {
+      const portfolioContainer = document.querySelector('#portfolio-container');
+      portfolioContainer.innerHTML = '';
+  
+      //
+    
+      let total = 0;
+
+      for (let i = 0; i < portfolio.length; i++) {
         total += portfolio[i].likes;
         let mediaElement;
         let type;
 
         if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
-            mediaElement = document.createElement("img");
-            mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
-            type = 'image';
+          mediaElement = document.createElement("img");
+          mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
+          type = 'image';
         } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
-            mediaElement = document.createElement("video");
-            mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
-            mediaElement.controls = true;
-            type = 'video';
+          mediaElement = document.createElement("video");
+          mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
+          mediaElement.controls = true;
+          type = 'video';
         }
 
         if (mediaElement) {
-            let containerElement = document.createElement("div");
-            containerElement.classList.add(type === 'image' ? "photo-item" : "video-item");
+          let containerElement = document.createElement("div");
+          containerElement.classList.add(type === 'image' ? "photo-item" : "video-item");
 
-            mediaElement.addEventListener('click', function () {
-                openModale(mediaElement.src, type, i);
-            });
-            containerElement.appendChild(mediaElement);
+          mediaElement.addEventListener('click', function () {
+            openModale(mediaElement.src, type, i);
+          });
+          containerElement.appendChild(mediaElement);
 
-            let titleElement = document.createElement("div");
-            titleElement.classList.add(type + "-title");
-            titleElement.innerText = portfolio[i].title;
-            containerElement.appendChild(titleElement);
+          let titleElement = document.createElement("div");
+          titleElement.classList.add(type + "-title");
+          titleElement.innerText = portfolio[i].title;
+          containerElement.appendChild(titleElement);
 
-            let likesElement = document.createElement("div");
-            likesElement.classList.add(type + "-likes");
+          let likesElement = document.createElement("div");
+          likesElement.classList.add(type + "-likes");
 
-            let likesText = document.createTextNode(`${portfolio[i].likes} `);
-            likesElement.appendChild(likesText);
+          let likesText = document.createTextNode(`${portfolio[i].likes} `);
+          likesElement.appendChild(likesText);
 
-            let heartIcon = document.createElement("i");
-            heartIcon.classList.add("fas");
-            heartIcon.classList.add("fa-heart");
+          let heartIcon = document.createElement("i");
+          heartIcon.classList.add("fas");
+          heartIcon.classList.add("fa-heart");
 
-            heartIcon.addEventListener("click", function () {
-                portfolio[i].likes++;
-                likesText.nodeValue = `${portfolio[i].likes} `;
+          heartIcon.addEventListener("click", function () {
+            portfolio[i].likes++;
+            likesText.nodeValue = `${portfolio[i].likes} `;
                 
-              total++;
+            total++;
               
-                if (totalLikesCount) {
-                    totalLikesCount.innerHTML = `${total} 🖤`;
-                }
-            });
+            if (totalLikesCount) {
+              totalLikesCount.innerHTML = `${total} 🖤`;
+            }
+          });
 
-            likesElement.appendChild(heartIcon);
-            containerElement.appendChild(likesElement);
-            portfolioContainer.appendChild(containerElement);
-      }
+          likesElement.appendChild(heartIcon);
+          containerElement.appendChild(likesElement);
+          portfolioContainer.appendChild(containerElement);
+        }
       
-  }
+      }
 
-    // je crée et j'ajoute le nombre total de likes
-    let totalLikesCount = document.createElement("div");
-    //totalLikesCount.className = 'total-likes__number';
-    totalLikesCount.id="total-likes"
-    totalLikesCount.innerHTML = `${total} 🖤 `;
-    portfolioContainer.appendChild(totalLikesCount);
-  //totalLikesElement.appendChild(totalLikesCount);
+      // je crée et j'ajoute le nombre total de likes
+      let totalLikesCount = document.createElement("div");
+      //totalLikesCount.className = 'total-likes__number';
+      totalLikesCount.id = "total-likes"
+      totalLikesCount.innerHTML = `${total} 🖤 `;
+      portfolioContainer.appendChild(totalLikesCount);
+      //totalLikesElement.appendChild(totalLikesCount);
   
-  let dayPrice = document.createElement("div");
-  dayPrice.classList.add("rate");
-  dayPrice.innerHTML = `${photographerPrice} € / jour`;
-  totalLikesElement.appendChild(dayPrice);
+      let dayPrice = document.createElement("div");
+      dayPrice.classList.add("rate");
+      dayPrice.innerHTML = `${photographerPrice} € / jour`;
+      totalLikesElement.appendChild(dayPrice);
  
-  console.log(dayPrice);
+      console.log(dayPrice);
+    }
+
+    document.getElementById('date').addEventListener('click', () => {
+      sortPortfolioByDate();
+      displayPortfolio();
+    });
+
+    document.getElementById('pop').addEventListener('click', () => {
+      sortPortfolioByPopularity();
+      displayPortfolio();
+    });
+
+    document.getElementById('titre').addEventListener('click', () => {
+      sortPortfolioByTitle();
+      displayPortfolio();
+    });
+    
+//
+    const containerDropdown = document.querySelector('.container-dropdown');
+    let secondClick = false;
+
+// tous les boutons sont cachés
+for (let child of containerDropdown.children) {
+    if (child !== containerDropdown.firstElementChild) {
+        child.style.display = 'none';
+    }
 }
 
-document.getElementById('date').addEventListener('click', () => {
-    sortPortfolioByDate();
-    displayPortfolio();
+containerDropdown.addEventListener('click', (e) => {
+    if (!secondClick) {
+        //quand je clique sur un bouton au départ, tous les boutons s'affichent
+        for (let child of containerDropdown.children) {
+            child.style.display = '';
+        }
+    } else {
+        // Lors du deuxième clic, que le bouton cliqué est visible
+        for (let child of containerDropdown.children) {
+            child.style.display = 'none';
+        }
+        e.target.style.display = '';  // Le bouton cliqué est affiché
+    }
+    secondClick = !secondClick;
 });
 
-document.getElementById('pop').addEventListener('click', () => {
-    sortPortfolioByPopularity();
-    displayPortfolio();
-});
-
-document.getElementById('titre').addEventListener('click', () => {
-    sortPortfolioByTitle();
-    displayPortfolio();
-});
-
+  
+    
 // Initialisation du tri par défaut et affichage du portfolio
 sortPortfolioByDate();
 displayPortfolio();
 
-
+//
+    
   
- //initialisation de la variable pour stocker la somme totale des likes init à 0
+  //initialisation de la variable pour stocker la somme totale des likes init à 0
     let total = 0;
      
     // ouverture de la modale
