@@ -362,7 +362,6 @@ label{
     align-items: baseline;
     align-content: stretch;
     border: solid red 4px;
-    z-index: 9999;
 }
 
 .rate{

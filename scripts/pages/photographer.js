@@ -350,19 +350,10 @@ function previousMedia() {
     */
 
         
-   
-      
- 
     
     let rateElement = document.querySelector('.rate');
     
-  })
-   
-    
-
-      
-
-    ;
+  });
    
     
     // Récupérer tous les liens 
@@ -394,5 +385,3 @@ function previousMedia() {
       
 
     });
-  
-  
