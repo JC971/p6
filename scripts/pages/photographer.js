@@ -4,11 +4,11 @@ let photographId = url.split("=")[1];
 const container = document.getElementById('photographersContainer');
 const portfolioElement = document.getElementById('portfolio-container');
 
-  let totalLikesElement = document.getElementById('total-likes');
+let totalLikesElement = document.getElementById('total-likes');
 
-console.log('con')
+
 console.log(totalLikesElement);
-console.log('alors')
+
 
 // je récupère les données
 fetch('data/photographers.json')
@@ -122,7 +122,6 @@ fetch('data/photographers.json')
       portfolio.sort((a, b) => b.likes - a.likes);
     }
     
-    
 
     function sortPortfolioByTitle() {
       portfolio.sort((a, b) => a.title.localeCompare(b.title));
@@ -132,8 +131,6 @@ fetch('data/photographers.json')
       const portfolioContainer = document.querySelector('#portfolio-container');
       portfolioContainer.innerHTML = '';
   
-      //
-    
       let total = 0;
 
       for (let i = 0; i < portfolio.length; i++) {
@@ -161,6 +158,7 @@ fetch('data/photographers.json')
           });
           containerElement.appendChild(mediaElement);
 
+
           let titleElement = document.createElement("div");
           titleElement.classList.add(type + "-title");
           titleElement.innerText = portfolio[i].title;
@@ -171,7 +169,8 @@ fetch('data/photographers.json')
 
           let likesText = document.createTextNode(`${portfolio[i].likes} `);
           likesElement.appendChild(likesText);
-
+          
+//
           let heartIcon = document.createElement("i");
           heartIcon.classList.add("fas");
           heartIcon.classList.add("fa-heart");
@@ -200,14 +199,19 @@ fetch('data/photographers.json')
       totalLikesCount.id = "total-likes"
       totalLikesCount.innerHTML = `${total} 🖤 `;
       portfolioContainer.appendChild(totalLikesCount);
-      //totalLikesElement.appendChild(totalLikesCount);
-  
+    
+
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
       dayPrice.innerHTML = `${photographerPrice} € / jour`;
+      portfolioContainer.appendChild(dayPrice)
+
+      dayPrice.textContent=`${photographerPrice} € / jour`;
       totalLikesElement.appendChild(dayPrice);
- 
+      // j'ajoute day price au portfolio container
+      
       console.log(dayPrice);
+      console.log(totalLikesElement)
     }
 
     document.getElementById('date').addEventListener('click', () => {
@@ -229,21 +233,22 @@ fetch('data/photographers.json')
     const containerDropdown = document.querySelector('.container-dropdown');
     let secondClick = false;
 
-// tous les boutons sont cachés
+// tous les boutons sont cachés à part le premier enfant du dropdown
 for (let child of containerDropdown.children) {
     if (child !== containerDropdown.firstElementChild) {
         child.style.display = 'none';
     }
 }
 
-containerDropdown.addEventListener('click', (e) => {
+    containerDropdown.addEventListener('click', (e) => {
+  //si c'est le prmier click alors
     if (!secondClick) {
         //quand je clique sur un bouton au départ, tous les boutons s'affichent
         for (let child of containerDropdown.children) {
             child.style.display = '';
         }
     } else {
-        // Lors du deuxième clic, que le bouton cliqué est visible
+        // au deuxième clic, que le bouton cliqué est visible
         for (let child of containerDropdown.children) {
             child.style.display = 'none';
         }
