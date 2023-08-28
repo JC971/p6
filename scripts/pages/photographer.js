@@ -7,8 +7,6 @@ const portfolioElement = document.getElementById('portfolio-container');
 let totalLikesElement = document.getElementById('total-likes');
 
 
-console.log(totalLikesElement);
-
 
 // je récupère les données
 fetch('data/photographers.json')
@@ -16,7 +14,7 @@ fetch('data/photographers.json')
   .then(data => {
     let media = data['media'];
     let photographers = data['photographers'];
-    
+
     let portfolio = [];
     const mp4Files = [];
     let tabLike = [];
@@ -29,7 +27,7 @@ fetch('data/photographers.json')
     for (let i = 0; i < media.length; i++) {
       if (media[i].photographerId == photographId) {
         portfolio.push(media[i]);
-       
+
       }
     };
 
@@ -49,9 +47,9 @@ fetch('data/photographers.json')
         photoPrice.push(photographers[i]);
       }
     };
-    
+
     for (let i = 0; i < photographers.length; i++) {
-      
+
       if (photographers[i].id == photographId) {
         photographerPrice = photographers[i].price;
         break;
@@ -84,16 +82,12 @@ fetch('data/photographers.json')
     let modalHeader = document.querySelector('#contact_modal .modal header');
 
     // je crée du contenu html pour insérer le nom du photographe dans ma modale
-  
+
     modalHeader.innerHTML = `
       <div class="header-content">
-
       <h2>Contactez-moi</h2>
-  
       <div class="photographerName">${currentPhotographer.name}</div>
-
       </div>
-
   <img src="assets/icons/close.svg" onclick="closeModal()" />
 `;
 
@@ -106,10 +100,10 @@ fetch('data/photographers.json')
       image.alt = currentPhotographer.name;
       photoPortraitElement.appendChild(image);
       let likes = document.querySelector('like');
-    
+
     } else {
       console.log("L'URL de l'image du photographe est manquante ou invalide");
-    
+
     };
 
     //DROPDOWN
@@ -121,16 +115,16 @@ fetch('data/photographers.json')
     function sortPortfolioByPopularity() {
       portfolio.sort((a, b) => b.likes - a.likes);
     }
-    
+
 
     function sortPortfolioByTitle() {
       portfolio.sort((a, b) => a.title.localeCompare(b.title));
     }
-    //
+    // affiche le portfolio d'un photographe
     function displayPortfolio() {
       const portfolioContainer = document.querySelector('#portfolio-container');
       portfolioContainer.innerHTML = '';
-  
+
       let total = 0;
 
       for (let i = 0; i < portfolio.length; i++) {
@@ -148,7 +142,7 @@ fetch('data/photographers.json')
           mediaElement.controls = true;
           type = 'video';
         }
-
+        // constitution d'une card qui contient l'image, le coeur, le nb de like
         if (mediaElement) {
           let containerElement = document.createElement("div");
           containerElement.classList.add(type === 'image' ? "photo-item" : "video-item");
@@ -169,8 +163,8 @@ fetch('data/photographers.json')
 
           let likesText = document.createTextNode(`${portfolio[i].likes} `);
           likesElement.appendChild(likesText);
-          
-//
+
+          //
           let heartIcon = document.createElement("i");
           heartIcon.classList.add("fas");
           heartIcon.classList.add("fa-heart");
@@ -178,11 +172,11 @@ fetch('data/photographers.json')
           heartIcon.addEventListener("click", function () {
             portfolio[i].likes++;
             likesText.nodeValue = `${portfolio[i].likes} `;
-                
+
             total++;
-              
+
             if (totalLikesCount) {
-              totalLikesCount.innerHTML = `${total} 🖤`;
+              totalLikesCount.innerHTML = `${total} 🖤 ${photographerPrice} € / jour`;
             }
           });
 
@@ -190,30 +184,27 @@ fetch('data/photographers.json')
           containerElement.appendChild(likesElement);
           portfolioContainer.appendChild(containerElement);
         }
-      
+
       }
 
       // je crée et j'ajoute le nombre total de likes
       let totalLikesCount = document.createElement("div");
-      //totalLikesCount.className = 'total-likes__number';
       totalLikesCount.id = "total-likes"
-      totalLikesCount.innerHTML = `${total} 🖤 `;
+      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span> ${photographerPrice} € / jour`;
       portfolioContainer.appendChild(totalLikesCount);
-    
+
 
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
-      dayPrice.innerHTML = `${photographerPrice} € / jour`;
       portfolioContainer.appendChild(dayPrice)
 
-      dayPrice.textContent=`${photographerPrice} € / jour`;
-      totalLikesElement.appendChild(dayPrice);
       // j'ajoute day price au portfolio container
-      
+
       console.log(dayPrice);
       console.log(totalLikesElement)
     }
 
+    // Code de tri par popularité,date,titre
     document.getElementById('date').addEventListener('click', () => {
       sortPortfolioByDate();
       displayPortfolio();
@@ -228,52 +219,48 @@ fetch('data/photographers.json')
       sortPortfolioByTitle();
       displayPortfolio();
     });
-    
-//
+
     const containerDropdown = document.querySelector('.container-dropdown');
     let secondClick = false;
 
-// tous les boutons sont cachés à part le premier enfant du dropdown
-for (let child of containerDropdown.children) {
-    if (child !== containerDropdown.firstElementChild) {
+    // tous les boutons sont cachés à part le premier enfant du dropdown
+    for (let child of containerDropdown.children) {
+      if (child !== containerDropdown.firstElementChild) {
         child.style.display = 'none';
+      }
     }
-}
 
     containerDropdown.addEventListener('click', (e) => {
-  //si c'est le prmier click alors
-    if (!secondClick) {
+      //si c'est le prmier click alors
+      if (!secondClick) {
         //quand je clique sur un bouton au départ, tous les boutons s'affichent
         for (let child of containerDropdown.children) {
-            child.style.display = '';
+          child.style.display = '';
         }
-    } else {
+      } else {
         // au deuxième clic, que le bouton cliqué est visible
         for (let child of containerDropdown.children) {
-            child.style.display = 'none';
+          child.style.display = 'none';
         }
         e.target.style.display = '';  // Le bouton cliqué est affiché
-    }
-    secondClick = !secondClick;
-});
+      }
+      secondClick = !secondClick;
+    });
 
-  
-    
-// Initialisation du tri par défaut et affichage du portfolio
-sortPortfolioByDate();
-displayPortfolio();
 
-//
-    
-  
-  //initialisation de la variable pour stocker la somme totale des likes init à 0
+
+    // Initialisation du tri par défaut et affichage du portfolio
+    sortPortfolioByDate();
+    displayPortfolio();
+
+    //initialisation de la variable pour stocker la somme totale des likes init à 0
     let total = 0;
-     
+
     // ouverture de la modale
     function openModale(mediaSrc, type, index) {
       currentMediaIndex = index;
       const modale = document.querySelector('.lightbox-modal .lightbox-image-container');
-  
+
       //j'inscris tous les media dans ma modale (image et video)
       const existingMedia = modale.querySelector('#modale-image, #modale-video');
       if (existingMedia) {
@@ -293,10 +280,10 @@ displayPortfolio();
         modalVideo.controls = true;
         modale.insertBefore(modalVideo, modale.querySelector('.lightbox-close'));
       }
-  
+
       document.querySelector('.lightbox-modal').style.display = 'block';
     }
-    
+
     // fermeture de la modale
     function closeModale() {
       const modale = document.querySelector('.lightbox-modal');
@@ -305,121 +292,70 @@ displayPortfolio();
     }
     // fonction qui regroupe les images et les vidéo 
     function displayMediaInLightbox(src, type, index) {
-      currentMediaIndex = index || currentMediaIndex; 
-  
+      currentMediaIndex = index || currentMediaIndex;
+
       const containerLightbox = document.querySelector('.lightbox-image-container');
-  
+
       //remise à zero
       const previousMedia = containerLightbox.querySelector('#modale-image, #modale-video, img, video');
       if (previousMedia) {
-          previousMedia.remove();
+        previousMedia.remove();
       }
-  
-      let newMediaElement;  
+
+      let newMediaElement;
       if (type === 'image') {
-          newMediaElement = document.createElement('img'); 
-          newMediaElement.src = src;  
-          newMediaElement.id = "modale-image"; 
+        newMediaElement = document.createElement('img');
+        newMediaElement.src = src;
+        newMediaElement.id = "modale-image";
       } else if (type === 'video') {
-          newMediaElement = document.createElement('video');  
-          newMediaElement.src = src;  
-          newMediaElement.controls = true;
-          newMediaElement.id = "modale-video"; 
+        newMediaElement = document.createElement('video');
+        newMediaElement.src = src;
+        newMediaElement.controls = true;
+        newMediaElement.id = "modale-video";
       }
-  
+
       if (newMediaElement) {
-          containerLightbox.insertBefore(newMediaElement, containerLightbox.querySelector('.lightbox-close'));  // And here
+        containerLightbox.insertBefore(newMediaElement, containerLightbox.querySelector('.lightbox-close'));  // And here
       }
-  
+
       // pour afficher la modale
       const modal = document.querySelector('.lightbox-modal');
       if (modal.style.display !== 'block') {
-          modal.style.display = 'block';
+        modal.style.display = 'block';
       }
-  }
-  
-  
+    }
+
+
     //fonction pour faire défiler les vidéo à l'aide du bouton suivant
- function nextMedia() {
-  if (currentMediaIndex < portfolio.length - 1) {
-      currentMediaIndex++;
-      const media = portfolio[currentMediaIndex];
-      const src = media.image ? `assets/images/${currentPhotographer.name}/${media.image}` : `assets/images/${currentPhotographer.name}/${media.video}`;
-      const type = media.image ? 'image' : 'video';
-      displayMediaInLightbox(src, type);
-   }
-   
-}
+    function nextMedia() {
+      if (currentMediaIndex < portfolio.length - 1) {
+        currentMediaIndex++;
+        const media = portfolio[currentMediaIndex];
+        const src = media.image ? `assets/images/${currentPhotographer.name}/${media.image}` : `assets/images/${currentPhotographer.name}/${media.video}`;
+        const type = media.image ? 'image' : 'video';
+        displayMediaInLightbox(src, type);
+      }
+
+    }
     //fonction pour revenir en arrière
-function previousMedia() {
-  if (currentMediaIndex > 0) {
-    currentMediaIndex--;
-    const media = portfolio[currentMediaIndex];
-    const src = media.image ? `assets/images/${currentPhotographer.name}/${media.image}` : `assets/images/${currentPhotographer.name}/${media.video}`;
-    const type = media.image ? 'image' : 'video';
-    displayMediaInLightbox(src, type);
-  }
-}
- // écoute pour les bouton suivant et précédent
+    function previousMedia() {
+      if (currentMediaIndex > 0) {
+        currentMediaIndex--;
+        const media = portfolio[currentMediaIndex];
+        const src = media.image ? `assets/images/${currentPhotographer.name}/${media.image}` : `assets/images/${currentPhotographer.name}/${media.video}`;
+        const type = media.image ? 'image' : 'video';
+        displayMediaInLightbox(src, type);
+      }
+    }
+    // écoute pour les bouton suivant et précédent
     document.querySelector('.lightbox-next').addEventListener('click', nextMedia);
-    
+
     document.querySelector('.lightbox-previous').addEventListener('click', previousMedia);
-  
+
     // fermeture de la modale au click 
     document.querySelector('.lightbox-close').addEventListener('click', closeModale);
-    
-/*
-      // création du prix du photographe par jour
-      let dayPrice = document.createElement("div");
-      dayPrice.classList.add("rate");
-    dayPrice.innerHTML = `${photographerPrice} € / jour`;
-    console.log("dayPrice créé", dayPrice);
 
-      // creation dinitiale du nombre total de likes
-      let totalLikesCount = document.createElement("div");
-      totalLikesCount.className = 'total-likes__number';
-      let emojiElement = document.createElement("span");
-      emojiElement.id = "emoji";
-      emojiElement.innerHTML = "";
-     
-      totalLikesCount.innerHTML = `${total} 🖤`;
-      totalLikesCount.appendChild(emojiElement);
-     
-    */
 
-        
-    
     let rateElement = document.querySelector('.rate');
-    
+
   });
-   
-    
-    // Récupérer tous les liens 
-    
-    const links = document.querySelectorAll('a');
-
-    // Ajoute d'un gestionnaire d'événements 
-    links.forEach(link => {
-      link.addEventListener('click', event => {
-        // Empeche le comportement par défaut 
-        event.preventDefault();
-
-        // Vérifier si le lien a la classe 'logo'
-        if (link.classList.contains('logo')) {
-          // Si la condition est rempli alors on renvoie vers la page index
-          window.location.href = '/index.html';
-        } else {
-          // Récupérer l'ID du photographe à partir de l'élément HTML
-          const photographerIdent = link.id;
-
-          // Construire la nouvelle URL avec l'ID du photographe en tant que paramètre de requête
-          const newUrl = `https://photographer.html?id=${photographerIdent}`;
-
-          window.location.href = newUrl;
-        }
-      })
-
-
-      
-
-    });
