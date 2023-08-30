@@ -8,6 +8,8 @@ let totalLikesElement = document.getElementById('total-likes');
 
 
 
+
+
 // je récupère les données
 fetch('data/photographers.json')
   .then(response => response.json())
@@ -120,7 +122,11 @@ fetch('data/photographers.json')
     function sortPortfolioByTitle() {
       portfolio.sort((a, b) => a.title.localeCompare(b.title));
     }
+
+
+
     // affiche le portfolio d'un photographe
+
     function displayPortfolio() {
       const portfolioContainer = document.querySelector('#portfolio-container');
       portfolioContainer.innerHTML = '';
@@ -132,11 +138,20 @@ fetch('data/photographers.json')
         let mediaElement;
         let type;
 
+        // cas d'une image
         if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
           mediaElement = document.createElement("img");
-          mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].image}`;
+          // thumbnail pour que le site se charge plus rapidement
+          let handle = portfolio[i].image;
+          let tmp = handle.split('.')
+          let extension = tmp.pop()
+          let filename = tmp.join('.')
+
+          mediaElement.src = `assets/images/${currentPhotographer.name}/${filename}_thumbnail.${extension}`;
           type = 'image';
-        } else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
+        }
+        //cas d'une video
+        else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
           mediaElement = document.createElement("video");
           mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
           mediaElement.controls = true;
