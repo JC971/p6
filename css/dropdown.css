@@ -1,13 +1,37 @@
 .container-dropdown{
+    position: relative;
+    width: 170px;
+    z-index: 1000; 
     
-            width: 115px;
-            height: 125px;
 }
 
  .btn {
-            border: solid 1px black;
-            margin: 2px;
-            width: 100px;
-            cursor: pointer;
-            caret-color: transparent;
-        }
+          
+    width: 170px;
+    height: 40px;
+    caret-color: transparent;
+    background-color:  #901C1C;
+    padding: 2px 0 0 10px;      
+    cursor: pointer;
+    font-size: 18px;
+ }
+
+
+ #date ,#titre,#pop {
+    color: #ffffff;
+
+ }
+
+
+  .hidden::before {
+    content: none;
+  }
+  
+.drop-container{
+    height: 30px;
+    display: flex;
+    
+    
+}
+
+

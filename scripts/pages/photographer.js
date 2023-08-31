@@ -181,19 +181,38 @@ fetch('data/photographers.json')
 
           //
           let heartIcon = document.createElement("i");
-          heartIcon.classList.add("fas");
+          heartIcon.classList.add("fa-regular");
           heartIcon.classList.add("fa-heart");
 
-          heartIcon.addEventListener("click", function () {
-            portfolio[i].likes++;
-            likesText.nodeValue = `${portfolio[i].likes} `;
 
-            total++;
+
+          // click sur coeur de la photo
+          heartIcon.addEventListener("click", function (e) {
+            // detect en fonction de la class si on a déjà liké ou non
+            let lesclasses = heartIcon.className;
+
+            console.log(lesclasses)
+
+            if (lesclasses.includes('fa-regular')) {
+              heartIcon.classList.remove('fa-regular')
+              heartIcon.classList.add('fa-solid')
+              portfolio[i].likes++;
+              likesText.nodeValue = `${portfolio[i].likes} `;
+              total++;
+            } else {
+              heartIcon.classList.add('fa-regular')
+              heartIcon.classList.remove('fa-solid')
+              portfolio[i].likes--;
+              likesText.nodeValue = `${portfolio[i].likes} `;
+              total--;
+            }
 
             if (totalLikesCount) {
-              totalLikesCount.innerHTML = `${total} 🖤 ${photographerPrice} € / jour`;
+              totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span>  ${photographerPrice} € / jour`;
             }
           });
+
+
 
           likesElement.appendChild(heartIcon);
           containerElement.appendChild(likesElement);
@@ -212,7 +231,6 @@ fetch('data/photographers.json')
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
       portfolioContainer.appendChild(dayPrice)
-
       // j'ajoute day price au portfolio container
 
       console.log(dayPrice);
@@ -244,13 +262,15 @@ fetch('data/photographers.json')
         child.style.display = 'none';
       }
     }
-
+//
     containerDropdown.addEventListener('click', (e) => {
       //si c'est le prmier click alors
       if (!secondClick) {
         //quand je clique sur un bouton au départ, tous les boutons s'affichent
         for (let child of containerDropdown.children) {
           child.style.display = '';
+          child.style.borderTop = "solid white 1px";
+         
         }
       } else {
         // au deuxième clic, que le bouton cliqué est visible
@@ -261,6 +281,7 @@ fetch('data/photographers.json')
       }
       secondClick = !secondClick;
     });
+
 
 
 
@@ -371,6 +392,6 @@ fetch('data/photographers.json')
     document.querySelector('.lightbox-close').addEventListener('click', closeModale);
 
 
-    let rateElement = document.querySelector('.rate');
+    //let rateElement = document.querySelector('.rate');
 
   });

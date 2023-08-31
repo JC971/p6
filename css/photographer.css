@@ -1,4 +1,3 @@
-
 body{
     max-width: 1440px;
     margin-right: auto;
@@ -6,11 +5,9 @@ body{
   
 }
 
-
 .container h1{
     font-size: 64px;
     color:#D3573C;
-
 }
 
 .container h3{
@@ -37,8 +34,6 @@ header {
 
 .logo{
     border-radius: 0;
-    
-    
     top: 43px;
     left: 100px;
 }
@@ -69,7 +64,8 @@ header {
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    width: 669px;
+    height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,9 +74,22 @@ header {
     margin: auto;
 }
 
+.modal header img{
+   width: 70px;
+   height: 70px;
+  background-color: white;
+ 
+
+}
+
+header img{
+    width: 200px;
+}
+
 .modal header {
     justify-content: space-between;
     width: 100%;
+    border: solid blue 2px;
 }
 
 .modal header img {
@@ -229,29 +238,6 @@ padding-left: 160px;
 display: flex;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    background-color: #901C1C;
-    width: 160px;
-    text-align: center;
-    
-}
-
-.dropdown-menu{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-.dropdown-menu span{
-    padding: 10px 0;
-    border-top: 2px solid white;
-    width: 100%;
-}
-
 #options {
     display: none;
     position: absolute;
@@ -298,21 +284,14 @@ display: flex;
 }
 
 
-.fa-heart{
-    color: #901C1C;
-}
-
-
 .photo-likes{
     cursor: pointer;
 }
 
-
  .modal header{
    height: 190px;
 }
-
-
+header img
 
 .header-content {
     display: flex;
@@ -325,8 +304,6 @@ display: flex;
     margin: 0;
   }
 
-
-  
   #contact_modal .modal header {
     display: flex;
     flex-direction: row;
@@ -349,43 +326,23 @@ label{
 }
 
 #total-likes{
-    height: 80px;
-    text-align: right;
+    height: 89px;
     position: fixed;
     bottom: 0px;
     right: 0px;
     background-color:rgba(219, 136, 118, 1);
     padding: 15px;
-    display: inline-block;
     border-radius: 10px;
     width: 376px;
-    text-align: left;
-    
-}
-
-.rate{
-    text-align: right;
     font-size: 24px;
-    bottom: 0;
-    right: 0px;
-    height: 50px;
-    position: fixed;
-    bottom: 0px;
-    color: red;
-   
-    
 }
-
-.total-likes__number{
-    width: 40%;
-    font-size: 24px;
-    text-align: left;
-    color: black;
-}
-
 
 #photo-portrait img{
     width: 200px;
     height: 200px;
 }
 
+#total-likes .fa-solid{
+   
+    padding-right: 180px;
+}
