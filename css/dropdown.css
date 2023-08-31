@@ -2,6 +2,7 @@
     position: relative;
     width: 170px;
     z-index: 1000; 
+    padding-left: 15px;
     
 }
 
@@ -30,6 +31,8 @@
 .drop-container{
     height: 30px;
     display: flex;
+    padding-left: 10px;
+    padding-right: 20px;
     
     
 }

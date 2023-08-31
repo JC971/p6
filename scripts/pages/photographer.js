@@ -90,7 +90,7 @@ fetch('data/photographers.json')
       <h2>Contactez-moi</h2>
       <div class="photographerName">${currentPhotographer.name}</div>
       </div>
-  <img src="assets/icons/close.svg" onclick="closeModal()" />
+  <img src="assets/icons/closewhite.svg" onclick="closeModal()" />
 `;
 
     // Créer et ajouter l'image du photographe au DOM

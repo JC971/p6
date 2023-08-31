@@ -56,6 +56,11 @@ header {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.contact_button:hover{
+   background-color: #D3573C;
+}
+
 .container{
     display: flex;
     flex-direction: column;
@@ -77,19 +82,21 @@ header {
 .modal header img{
    width: 70px;
    height: 70px;
-  background-color: white;
+ 
+  border-radius: 0;
  
 
 }
 
 header img{
     width: 200px;
+   
 }
 
 .modal header {
     justify-content: space-between;
     width: 100%;
-    border: solid blue 2px;
+    
 }
 
 .modal header img {
@@ -345,4 +352,12 @@ label{
 #total-likes .fa-solid{
    
     padding-right: 180px;
+}
+
+.rate{
+    display: none;
+}
+
+.drop-container{
+    padding-right: 0;
 }
