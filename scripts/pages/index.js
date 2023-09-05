@@ -1,4 +1,6 @@
-// récupérer tous les liens
+
+// Récupérer tous les liens 
+
 const links = document.querySelectorAll('a');
 
 // Ajoute d'un gestionnaire d'événements 
@@ -21,48 +23,50 @@ links.forEach(link => {
       window.location.href = newUrl;
     }
   })
+
+
+
+
 });
-
-
 async function getPhotographers() {
-    const response = await fetch('data/photographers.json');
-    if (response.ok) {
-      const data = await response.json();
-      
-      return data;
-    } else {
-      console.error('Erreur chargement des photographes');
-    }
-  };
-  
+  const response = await fetch('data/photographers.json');
+  if (response.ok) {
+    const data = await response.json();
 
-    async function displayData(photographers) {
-      const photographersSection = document.querySelector(".photographer_section");
-      
-// affiche les photos des photographes
-        photographers.forEach((photographer) => {
-            const photographerModel = photographerFactory(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
-           
-        });
-        
-    };
+    return data;
+  } else {
+    console.error('Erreur chargement des photographes');
+  }
+};
 
-    async function init() {
-        // Récupère les datas des photographes
-        const { photographers } = await getPhotographers();
-        displayData(photographers);
-       
-    };
-    
+
+async function displayData(photographers) {
+  const photographersSection = document.querySelector(".photographer_section");
+
+  // affiche les photos des photographes
+  photographers.forEach((photographer) => {
+    const photographerModel = photographerFactory(photographer);
+    const userCardDOM = photographerModel.getUserCardDOM();
+    photographersSection.appendChild(userCardDOM);
+
+  });
+
+};
+
+async function init() {
+  // Récupère les datas des photographes
+  const { photographers } = await getPhotographers();
+  displayData(photographers);
+
+};
+
 init();
 
 
 
 
 
-    
 
 
-    
+
+

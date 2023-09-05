@@ -1,5 +1,4 @@
 const url = window.location.href;
-console.log('url de la page est', url);
 let photographId = url.split("=")[1];
 const container = document.getElementById('photographersContainer');
 const portfolioElement = document.getElementById('portfolio-container');
@@ -18,9 +17,6 @@ fetch('data/photographers.json')
     let photographers = data['photographers'];
 
     let portfolio = [];
-    const mp4Files = [];
-    let tabLike = [];
-    const mediaTitle = [];
     const photoPrice = [];
     let currentMediaIndex = 0;
     let currentPhotographer;
@@ -66,16 +62,19 @@ fetch('data/photographers.json')
     // Ajouter le nom du photographe 
     const nameElement = document.createElement('h1');
     nameElement.innerHTML = currentPhotographer.name;
+    nameElement.style.fontFamily = "Arial"
     container.appendChild(nameElement);
 
     // Ajouter la ville et le pays du photographe 
     const cityCountryElement = document.createElement('h3');
     cityCountryElement.innerHTML = `${currentPhotographer.city}, ${currentPhotographer.country}`;
+    cityCountryElement.style.fontFamily = "Arial"
     container.appendChild(cityCountryElement);
 
     // ajouter la tagline du photographe
     const taglineElement = document.createElement('div');
     taglineElement.classList.add('tagline');
+    taglineElement.style.fontFamily = "Arial"
     taglineElement.innerHTML = `${currentPhotographer.tagline}`;
     container.appendChild(taglineElement);
 
@@ -90,7 +89,7 @@ fetch('data/photographers.json')
       <h2>Contactez-moi</h2>
       <div class="photographerName">${currentPhotographer.name}</div>
       </div>
-  <img src="assets/icons/closewhite.svg" onclick="closeModal()" />
+  <img src="assets/icons/close.svg" onclick="closeModal()" />
 `;
 
     // Créer et ajouter l'image du photographe au DOM
@@ -109,7 +108,7 @@ fetch('data/photographers.json')
     };
 
     //DROPDOWN
-    // function
+    // functions tri
     function sortPortfolioByDate() {
       portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
     }
@@ -118,12 +117,9 @@ fetch('data/photographers.json')
       portfolio.sort((a, b) => b.likes - a.likes);
     }
 
-
     function sortPortfolioByTitle() {
       portfolio.sort((a, b) => a.title.localeCompare(b.title));
     }
-
-
 
     // affiche le portfolio d'un photographe
 
@@ -139,27 +135,44 @@ fetch('data/photographers.json')
         let type;
 
         // cas d'une image
-        if (portfolio[i].image && portfolio[i].image.endsWith('.jpg')) {
+        if (portfolio[i].image && (portfolio[i].image.endsWith('.jpg') || portfolio[i].image.endsWith('.png'))) {
+          // la var lemedia est l'objet qui va contenir les informations de l'image
+          let lemedia = new MediaFactory(portfolio[i], currentPhotographer)
+
           mediaElement = document.createElement("img");
-          // thumbnail pour que le site se charge plus rapidement
-          let handle = portfolio[i].image;
+          // ajout attribut alt
+          mediaElement.setAttribute('alt', lemedia._title)
+          // utilisation thumbnail pour que le site se charge plus rapidement
+          // prise en charge des miniatures
+          // extraction du nom nom de fichier sans l'extension
+          let handle = lemedia._image;
           let tmp = handle.split('.')
-          let extension = tmp.pop()
-          let filename = tmp.join('.')
+          let extension = tmp.pop() // on fait sautre l'extension
+          let filename = tmp.join('.') // on rassembler les différentes partie pour reconstituer le nom de l'image pour éviter le cas suivant :  nom_imags.jpg.png
 
           mediaElement.src = `assets/images/${currentPhotographer.name}/${filename}_thumbnail.${extension}`;
           type = 'image';
         }
         //cas d'une video
+        // pas besoni de miniature
         else if (portfolio[i].video && portfolio[i].video.endsWith('.mp4')) {
+          // utiliser mediaFactory
+          let lemedia = new MediaFactory(portfolio[i], currentPhotographer)
+          //console.log(lemedia)
           mediaElement = document.createElement("video");
-          mediaElement.src = `assets/images/${currentPhotographer.name}/${portfolio[i].video}`;
+          // ajout attribut alt
+          mediaElement.setAttribute('alt', lemedia._title)
+          mediaElement.src = `assets/images/${lemedia._photographerName}/${lemedia._video}`;
           mediaElement.controls = true;
           type = 'video';
+
         }
+
+
+
         // constitution d'une card qui contient l'image, le coeur, le nb de like
         if (mediaElement) {
-          let containerElement = document.createElement("div");
+          let containerElement = document.createElement("article");
           containerElement.classList.add(type === 'image' ? "photo-item" : "video-item");
 
           mediaElement.addEventListener('click', function () {
@@ -191,7 +204,6 @@ fetch('data/photographers.json')
             // detect en fonction de la class si on a déjà liké ou non
             let lesclasses = heartIcon.className;
 
-            console.log(lesclasses)
 
             if (lesclasses.includes('fa-regular')) {
               heartIcon.classList.remove('fa-regular')
@@ -212,14 +224,13 @@ fetch('data/photographers.json')
             }
           });
 
-
-
           likesElement.appendChild(heartIcon);
           containerElement.appendChild(likesElement);
           portfolioContainer.appendChild(containerElement);
         }
 
       }
+
 
       // je crée et j'ajoute le nombre total de likes
       let totalLikesCount = document.createElement("div");
@@ -231,10 +242,7 @@ fetch('data/photographers.json')
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
       portfolioContainer.appendChild(dayPrice)
-      // j'ajoute day price au portfolio container
 
-      console.log(dayPrice);
-      console.log(totalLikesElement)
     }
 
     // Code de tri par popularité,date,titre
@@ -253,26 +261,29 @@ fetch('data/photographers.json')
       displayPortfolio();
     });
 
+
+
     const containerDropdown = document.querySelector('.container-dropdown');
     let secondClick = false;
+    const btnTitre=document.getElementById("titre")
+    const btnPop = document.getElementById("pop")
+    
 
-    // tous les boutons sont cachés à part le premier enfant du dropdown
-    for (let child of containerDropdown.children) {
-      if (child !== containerDropdown.firstElementChild) {
-        child.style.display = 'none';
-      }
-    }
-//
+
     containerDropdown.addEventListener('click', (e) => {
+
       //si c'est le prmier click alors
       if (!secondClick) {
+        containerDropdown.style.height="100px"
         //quand je clique sur un bouton au départ, tous les boutons s'affichent
         for (let child of containerDropdown.children) {
           child.style.display = '';
-          child.style.borderTop = "solid white 1px";
-         
         }
       } else {
+        containerDropdown.style.height = "20px"
+        btnPop.style.border = "none"
+        btnTitre.style.border="none"
+        
         // au deuxième clic, que le bouton cliqué est visible
         for (let child of containerDropdown.children) {
           child.style.display = 'none';
@@ -284,7 +295,6 @@ fetch('data/photographers.json')
 
 
 
-
     // Initialisation du tri par défaut et affichage du portfolio
     sortPortfolioByDate();
     displayPortfolio();
@@ -292,7 +302,7 @@ fetch('data/photographers.json')
     //initialisation de la variable pour stocker la somme totale des likes init à 0
     let total = 0;
 
-    // ouverture de la modale
+    // ouverture de la modale PHOTO/VIDEO
     function openModale(mediaSrc, type, index) {
       currentMediaIndex = index;
       const modale = document.querySelector('.lightbox-modal .lightbox-image-container');
@@ -320,12 +330,7 @@ fetch('data/photographers.json')
       document.querySelector('.lightbox-modal').style.display = 'block';
     }
 
-    // fermeture de la modale
-    function closeModale() {
-      const modale = document.querySelector('.lightbox-modal');
-      // je fais disparaitre la modale
-      modale.style.display = 'none';
-    }
+
     // fonction qui regroupe les images et les vidéo 
     function displayMediaInLightbox(src, type, index) {
       currentMediaIndex = index || currentMediaIndex;
@@ -364,6 +369,7 @@ fetch('data/photographers.json')
 
     //fonction pour faire défiler les vidéo à l'aide du bouton suivant
     function nextMedia() {
+      console.log(arguments)
       if (currentMediaIndex < portfolio.length - 1) {
         currentMediaIndex++;
         const media = portfolio[currentMediaIndex];
@@ -383,15 +389,34 @@ fetch('data/photographers.json')
         displayMediaInLightbox(src, type);
       }
     }
-    // écoute pour les bouton suivant et précédent
-    document.querySelector('.lightbox-next').addEventListener('click', nextMedia);
 
-    document.querySelector('.lightbox-previous').addEventListener('click', previousMedia);
+
+    // écoute pour les bouton suivant et précédent à al souris
+    document.querySelector('.lightbox-next').addEventListener('click', (e) => nextMedia());
+    document.querySelector('.lightbox-previous').addEventListener('click', (e) => previousMedia());
+    // a clavier
+    document.querySelector('body').addEventListener('keydown', (e) => {
+      if (e.keyCode == 37)
+        previousMedia()
+      if (e.keyCode == 39)
+        nextMedia()
+    });
+    // document.querySelector('.lightbox-previous').addEventListener('keydown', previousMedia);
+
 
     // fermeture de la modale au click 
     document.querySelector('.lightbox-close').addEventListener('click', closeModale);
 
 
-    //let rateElement = document.querySelector('.rate');
+  });// fin de fetch
 
-  });
+
+
+
+// fermeture de la modale
+function closeModale() {
+  const modale = document.querySelector('.lightbox-modal');
+  // je fais disparaitre la modale
+  modale.style.display = 'none';
+}
+
