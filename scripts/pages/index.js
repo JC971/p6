@@ -1,4 +1,3 @@
-
 // Récupérer tous les liens 
 
 const links = document.querySelectorAll('a');

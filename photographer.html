@@ -1,104 +1,135 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="css/photographer.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/css/lightbox.css">
-    <link rel="stylesheet" href="/css/dropdown.css">
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/2df48a673b.js" crossorigin="anonymous"></script>
-    <title>Fisheye - photographe </title>
-  </head>
-  <body>
-    <header>
-      <a class="logo" href="/index.html">
-      <img  src="assets/images/logo.png"  />
+
+<head>
+  <link href="css/photographer.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/css/lightbox.css">
+  <link rel="stylesheet" href="/css/dropdown.css">
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/2df48a673b.js" crossorigin="anonymous"></script>
+  <title>Fisheye - photographe </title>
+</head>
+
+<body>
+  <header>
+    <a class="logo" href="/index.html" tabindex="1">
+      <img src="assets/images/logo.png" />
     </a>
-  
-    
-    </header>
 
-    <main id="main">
 
-      <div class="photograph-header">
-        <div class="container" id="photographersContainer" > </div>
-          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-          <div id="container-portrait">
-            
+  </header>
 
-          <div id="photo-portrait">
-          </div>
-        </div>
-        
-      </div>
-      <div class="drop-container"> Trier par   
-        <div class="container-dropdown">
-          <div class="btn" id="date">Date</div>
-          <div class="btn" id="pop">Popularité</div>
-          <div class="btn" id="titre">Titre</div>
+  <main id="main">
+
+    <nav class="photograph-header">
+      <div class="container" id="photographersContainer"> </div>
+      <button class="contact_button" onclick="displayContactModal()" tabindex="2    ">Contactez-moi</button>
+      <div id="container-portrait">
+
+
+        <div id="photo-portrait">
         </div>
       </div>
-      
-<div class="portfolio"> 
-    <div id="portfolio-container"> 
-      
-        <div id="total-likes">
-          
+    </nav>
 
-        </div>
-      
+
+
+    <section id="filtre">
+      <div id="filtre-label">
+        Trier par
+      </div>
+      <div class="container-dropdown" tabindex="3">
+        <div class="btn" id="date" tabindex="4">Date</div>
+        <div class="btn" id="pop" tabindex="5">Popularité</div>
+        <div class="btn" id="titre" tabindex="6">Titre</div>
+    </section>
+
     </div>
-</div>
-<!--création de la lightbox-->
-<div class="lightbox-modal">
-  <div class="lightbox-container">
-      <div class="lightbox-image-container">
+
+    <div class="portfolio">
+      <div id="portfolio-container">
+
+        <div id="total-likes">
+
+
+        </div>
+
+      </div>
+    </div>
+    <!--création de la lightbox-->
+    <div class="lightbox-modal">
+      <div class="lightbox-container">
+        <div class="lightbox-image-container">
           <button class="lightbox-close"></button>
-          <button class="lightbox-next"></button> 
+          <button class="lightbox-next"></button>
           <button class="lightbox-previous"></button>
+        </div>
       </div>
+    </div>
+
+
+
+  </main>
+
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+        <h2>Contactez-moi</h2>
+        <img src="assets/icons/close.svg" onclick="closeModal()" />
+
+      </header>
+      <form action="#" method="post">
+        <div>
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" value="" />
+        </div>
+        <div>
+          <label>Nom</label>
+          <input type="text" id="nom" name="nom" value="" />
+
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="text" id="email" name="email" value="" />
+
+        </div>
+        <div>
+          <label>Votre commentaire</label>
+          <textarea name="comment" id="commentaire" cols="77" rows="10"></textarea>
+        </div>
+        <button id="envoi_data" class="contact_button">Envoyer</button>
+      </form>
+    </div>
   </div>
-</div>
 
 
+  <script src="scripts/utils/contactForm.js"></script>
+  <script src="scripts/factories/mediaFactory.js"></script>
+  <script src="scripts/pages/photographer.js"></script>
+  <script src="scripts/pages/lightbox.js"></script>
 
-    </main>
+</body>
+<script>
 
-<div id="contact_modal">
-  <div class="modal">
-    <header>
-      <h2>Contactez-moi</h2>
-      <img src="assets/icons/close.svg" onclick="closeModal()" />
+  // bouton de contact modale
+  let contact_button = document.querySelector('#envoi_data')
 
-    </header>
-    <form>
-      <div>
-        <label for="prenom">Prénom</label>
-        <input/>
-      </div>
-      <div>
-        <label>Nom</label>
-        <input />
-      </div>
-      <div>
-        <label>Email</label>
-        <input />
-      </div>
-      <div>
-        <label>Votre commentaire</label>
-        <textarea name="comment" id="commentaire" cols="77" rows="10"></textarea>
-      </div>
-      <button class="contact_button">Envoyer</button>
-    </form>
-  </div>
-</div>
+  contact_button.addEventListener('click', function (e) {
+    e.preventDefault()
+    // fetch des champs
+    let email = document.querySelector('#email').value
+    let nom = document.querySelector('#nom').value
+    let prenom = document.querySelector('#prenom').value
+    let commentaire = document.querySelector('#commentaire').value
+    console.log('Données du formulaire')
+    console.log(email)
+    console.log(nom)
+    console.log(prenom)
+    console.log(commentaire)
+    closeModal()
+  })
+</script>
 
-   <script src="scripts/factories/mediaFactory.js"></script>
-   <script src="scripts/utils/contactForm.js"></script>
-   <script src="scripts/pages/photographer.js" ></script>
-   <script src="scripts/pages/lightbox.js"></script>
-   
-  </body>
-  
 </html>
