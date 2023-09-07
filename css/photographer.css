@@ -153,6 +153,7 @@ img {
     padding-left: 0;
 }
 
+
 .tri {
     display: flex;
     margin-top: 20px;
@@ -186,7 +187,6 @@ select {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    ;
     align-items: stretch;
     align-content: stretch;
 
@@ -204,8 +204,6 @@ select {
     height: 400px;
     border-radius: 0;
     object-fit: cover;
-
-
 }
 
 .video-item {
@@ -219,7 +217,6 @@ select {
     margin-bottom: 15px;
 }
 
-
 .image-title {
     font-family: Arial;
     width: 60%;
@@ -229,7 +226,6 @@ select {
     font-weight: 400;
     color: #901C1C;
 }
-
 
 .video-title {
     font-family: Arial;
@@ -250,10 +246,8 @@ select {
     color: #901C1C;
 }
 
-
 .image-likes i {
     cursor: pointer;
-
 }
 
 .container {
@@ -268,7 +262,6 @@ select {
     background-color: #901C1C;
     width: 160px;
     text-align: center;
-
 }
 
 .dropdown-menu {
@@ -310,8 +303,6 @@ select {
     padding: 5px 0 20px 0;
 }
 
-
-
 .video-likes {
     font-family: Arial;
     display: inline-block;
@@ -324,22 +315,17 @@ select {
     font-weight: 500;
 }
 
-
 .fa-heart {
     color: #901C1C;
 }
-
 
 .photo-likes {
     cursor: pointer;
 }
 
-
 .modal header {
     height: 190px;
 }
-
-
 
 .header-content {
     display: flex;
@@ -352,14 +338,11 @@ select {
     margin: 0;
 }
 
-
-
 #contact_modal .modal header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
-
 }
 
 .photographerName {
@@ -386,27 +369,19 @@ label {
     width: 300px;
     text-align: left;
     font-family: arial;
-    font-weight: bolder;
+    font-weight: bolder; 
+   
 }
 
-.rate {
-    text-align: right;
-    font-size: 24px;
-    bottom: 0;
-    right: 0px;
-    height: 50px;
+.rate{
     position: fixed;
-    bottom: 0px;
-    color: red;
-
-
-}
-
-.total-likes__number {
-    width: 40%;
-    font-size: 24px;
+    bottom: 0;
+    right: 40px;
+    height: 40px;
+    padding: 15px;
     text-align: left;
-    color: black;
+    font-family: arial;
+    font-weight: bolder; 
 }
 
 

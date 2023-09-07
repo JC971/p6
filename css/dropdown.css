@@ -39,12 +39,7 @@
     z-index: 1000;
 }
 
-#pop{
-    border-top: solid white 1px;
-    
+.container-dropdown .btn:not(:last-child){
+    border-bottom: solid 1px white;
 }
 
-#titre{
-    border-top: solid white 1px;
-    
-}

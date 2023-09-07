@@ -89,7 +89,7 @@ fetch('data/photographers.json')
       <h2>Contactez-moi</h2>
       <div class="photographerName">${currentPhotographer.name}</div>
       </div>
-  <img src="assets/icons/close.svg" onclick="closeModal()" />
+  <img src="assets/icons/closewhite.svg" onclick="closeModal()" />
 `;
 
     // Créer et ajouter l'image du photographe au DOM
@@ -168,8 +168,6 @@ fetch('data/photographers.json')
 
         }
 
-
-
         // constitution d'une card qui contient l'image, le coeur, le nb de like
         if (mediaElement) {
           let containerElement = document.createElement("article");
@@ -220,7 +218,7 @@ fetch('data/photographers.json')
             }
 
             if (totalLikesCount) {
-              totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span>  ${photographerPrice} € / jour`;
+              totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span> `;
             }
           });
 
@@ -235,13 +233,17 @@ fetch('data/photographers.json')
       // je crée et j'ajoute le nombre total de likes
       let totalLikesCount = document.createElement("div");
       totalLikesCount.id = "total-likes"
-      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span> ${photographerPrice} € / jour`;
+      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span>
+       `;
       portfolioContainer.appendChild(totalLikesCount);
 
 
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
+      dayPrice.innerHTML=`${photographerPrice} € / jour`
       portfolioContainer.appendChild(dayPrice)
+
+
 
     }
 
@@ -265,13 +267,9 @@ fetch('data/photographers.json')
 
     const containerDropdown = document.querySelector('.container-dropdown');
     let secondClick = false;
-    const btnTitre=document.getElementById("titre")
-    const btnPop = document.getElementById("pop")
+   
     
-
-
     containerDropdown.addEventListener('click', (e) => {
-
       //si c'est le prmier click alors
       if (!secondClick) {
         containerDropdown.style.height="100px"
@@ -281,8 +279,7 @@ fetch('data/photographers.json')
         }
       } else {
         containerDropdown.style.height = "20px"
-        btnPop.style.border = "none"
-        btnTitre.style.border="none"
+      
         
         // au deuxième clic, que le bouton cliqué est visible
         for (let child of containerDropdown.children) {
@@ -420,3 +417,20 @@ function closeModale() {
   modale.style.display = 'none';
 }
 
+  // bouton de contact modale
+  let contact_button = document.querySelector('#envoi_data')
+
+  contact_button.addEventListener('click', function (e) {
+    e.preventDefault()
+    // fetch des champs
+    let email = document.querySelector('#email').value
+    let nom = document.querySelector('#nom').value
+    let prenom = document.querySelector('#prenom').value
+    let commentaire = document.querySelector('#commentaire').value
+    console.log('Données du formulaire')
+    console.log(email)
+    console.log(nom)
+    console.log(prenom)
+    console.log(commentaire)
+    closeModal()
+  })
