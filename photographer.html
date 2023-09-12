@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <link href="css/photographer.css" rel="stylesheet" type="text/css" />
@@ -13,9 +13,9 @@
 </head>
 
 <body>
-  <header>
-    <a class="logo" href="/index.html" tabindex="1">
-      <img src="assets/images/logo.png" />
+  <header role="banner">
+    <a class="logo" href="/index.html" tabindex="1" title="accueil">
+      <img src="assets/images/logo.png" alt="logo fisheye" />
     </a>
 
 
@@ -25,7 +25,7 @@
 
     <nav class="photograph-header">
       <div class="container" id="photographersContainer"> </div>
-      <button class="contact_button" onclick="displayContactModal()" tabindex="2    ">Contactez-moi</button>
+      <button class="contact_button" onclick="displayContactModal()" tabindex="2">Contactez-moi</button>
       <div id="container-portrait">
 
 
@@ -62,9 +62,9 @@
     <div class="lightbox-modal">
       <div class="lightbox-container">
         <div class="lightbox-image-container">
-          <button class="lightbox-close"></button>
-          <button class="lightbox-next"></button>
-          <button class="lightbox-previous"></button>
+          <button class="lightbox-close" role="button"></button>
+          <button class="lightbox-next" role="button"></button>
+          <button class="lightbox-previous" role="button"></button>
         </div>
       </div>
     </div>
@@ -73,33 +73,33 @@
 
   </main>
 
-  <div id="contact_modal">
-    <div class="modal">
+  <div id="contact_modal" aria-hidden="true">
+    <div class="modal" role="dialog">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" onclick="closeModal()" alt="fermer modale" />
 
       </header>
       <form action="#" method="post">
         <div>
           <label for="prenom">Prénom</label>
-          <input type="text" id="prenom" name="prenom" value="" />
+          <input aria-labelledby="prenom" type="text" id="prenom" name="prenom" value="" />
         </div>
         <div>
-          <label>Nom</label>
-          <input type="text" id="nom" name="nom" value="" />
+          <label for="nom">Nom</label>
+          <input aria-labelledby="nom" type="text" id="nom" name="nom" value="" />
 
         </div>
         <div>
-          <label>Email</label>
-          <input type="text" id="email" name="email" value="" />
+          <label for="email">Email</label>
+          <input aria-labelledby="email" type="text" id="email" name="email" value="" />
 
         </div>
         <div>
-          <label>Votre commentaire</label>
-          <textarea name="comment" id="commentaire" cols="77" rows="10"></textarea>
+          <label for="commentaire">Votre commentaire</label>
+          <textarea aria-labelledby="commentaire" name="commentaire" id="commentaire" cols="77" rows="10"></textarea>
         </div>
-        <button id="envoi_data" class="contact_button">Envoyer</button>
+        <button id="envoi_data" class="contact_button" aria-label="Envoyez votre message">Envoyer</button>
       </form>
     </div>
   </div>
@@ -113,7 +113,23 @@
 </body>
 <script>
 
+  // bouton de contact modale
+  let contact_button = document.querySelector('#envoi_data')
 
+  contact_button.addEventListener('click', function (e) {
+    e.preventDefault()
+    // fetch des champs
+    let email = document.querySelector('#email').value
+    let nom = document.querySelector('#nom').value
+    let prenom = document.querySelector('#prenom').value
+    let commentaire = document.querySelector('#commentaire').value
+    console.log('Données du formulaire')
+    console.log(email)
+    console.log(nom)
+    console.log(prenom)
+    console.log(commentaire)
+    closeModal()
+  })
 </script>
 
 </html>

@@ -5,11 +5,10 @@ body {
 
 }
 
-
 .container h1 {
     font-size: 64px;
     color: #D3573C;
-
+    margin: 0;
 }
 
 .container h3 {
@@ -49,15 +48,20 @@ header {
 
 .contact_button {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
     color: white;
     padding: 11px;
     width: 170px;
-    height: 70px;
+    height: 69px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    border-radius: 5px;
+}
+
+.contact_button:hover{
+    background-color: #D3573C;
 }
 
 .container {
@@ -70,6 +74,7 @@ header {
     border-radius: 15px;
     background-color: #DB8876;
     width: 50%;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,7 +131,6 @@ form input {
     border: none;
 }
 
-
 img {
     width: 120px;
     height: 120px;
@@ -142,7 +146,7 @@ img {
     align-items: center;
     align-content: stretch;
     background-color: #FAFAFA;
-    /* height: 313px;*/
+    height: 313px;
 }
 
 #photographersContainer {
@@ -152,7 +156,6 @@ img {
 #photographersContainer.container {
     padding-left: 0;
 }
-
 
 .tri {
     display: flex;
@@ -165,8 +168,6 @@ label {
     font-size: 1rem;
     padding-right: 10px;
     padding-left: 90px;
-
-
 }
 
 select {
@@ -174,11 +175,9 @@ select {
     padding: 2px 5px;
 }
 
-
 .portfolio {
-    margin-top: 50px;
+    margin-top: 60px;
 }
-
 
 #portfolio-container {
     margin-left: auto;
@@ -187,9 +186,9 @@ select {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    ;
     align-items: stretch;
     align-content: stretch;
-
 }
 
 #portfolio-container img {
@@ -197,7 +196,6 @@ select {
     height: 400px;
     border-radius: 0;
 }
-
 
 #portfolio-container video {
     width: 100%;
@@ -222,7 +220,7 @@ select {
     width: 60%;
     text-align: left;
     display: inline-block;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 400;
     color: #901C1C;
 }
@@ -232,7 +230,7 @@ select {
     display: inline-block;
     width: 70%;
     color: #901C1C;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 400;
 }
 
@@ -255,52 +253,11 @@ select {
     display: flex;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    background-color: #901C1C;
-    width: 160px;
-    text-align: center;
-}
-
-.dropdown-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-
-.dropdown-menu span {
-    padding: 10px 0;
-    border-top: 2px solid white;
-    width: 100%;
-}
-
-#options {
-    display: none;
-    position: absolute;
-    background-color: #901C1C;
-    color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
 .photo-title {
     display: inline-block;
     width: 50%;
     color: #901C1C;
     font-size: 24px;
-}
-
-.photo-likes {
-    display: inline-block;
-    text-align: right;
-    width: 50%;
-    color: #901C1C;
-    font-size: 24px;
-    padding: 5px 0 20px 0;
 }
 
 .video-likes {
@@ -322,6 +279,7 @@ select {
 .photo-likes {
     cursor: pointer;
 }
+
 
 .modal header {
     height: 190px;
@@ -369,23 +327,35 @@ label {
     width: 300px;
     text-align: left;
     font-family: arial;
-    font-weight: bolder; 
-   
+    font-weight: 500;
+    font-size: 24px;
+    color: #000000;
+    border-radius: 5px;
 }
 
-.rate{
+.rate {
+    text-align: right;
+    font-size: 24px;
+    bottom: 20px;
+    right: 20px;
+    height: 50px;
     position: fixed;
-    bottom: 0;
+    bottom: 0px;
+    color: #000000;
+    font-weight: 500;
+    background-color: rgba(219, 136, 118, 1);
+    bottom: 0px;
     right: 40px;
-    height: 40px;
-    padding: 15px;
-    text-align: left;
+    text-align: right;
+    padding: 10px;
     font-family: arial;
-    font-weight: bolder; 
+    font-weight: 500;
+    font-size: 24px;
+    border-radius: 5px;
 }
-
 
 #photo-portrait img {
     width: 200px;
     height: 200px;
 }
+

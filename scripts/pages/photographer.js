@@ -66,7 +66,7 @@ fetch('data/photographers.json')
     container.appendChild(nameElement);
 
     // Ajouter la ville et le pays du photographe 
-    const cityCountryElement = document.createElement('h3');
+    const cityCountryElement = document.createElement('h2');
     cityCountryElement.innerHTML = `${currentPhotographer.city}, ${currentPhotographer.country}`;
     cityCountryElement.style.fontFamily = "Arial"
     container.appendChild(cityCountryElement);
@@ -89,7 +89,7 @@ fetch('data/photographers.json')
       <h2>Contactez-moi</h2>
       <div class="photographerName">${currentPhotographer.name}</div>
       </div>
-  <img src="assets/icons/closewhite.svg" onclick="closeModal()" />
+  <img src="assets/icons/closewhite.svg" onclick="closeModal()" alt='fermer'/>
 `;
 
     // Créer et ajouter l'image du photographe au DOM
@@ -107,7 +107,6 @@ fetch('data/photographers.json')
 
     };
 
-    //DROPDOWN
     // functions tri
     function sortPortfolioByDate() {
       portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -160,22 +159,39 @@ fetch('data/photographers.json')
           let lemedia = new MediaFactory(portfolio[i], currentPhotographer)
           //console.log(lemedia)
           mediaElement = document.createElement("video");
+
           // ajout attribut alt
           mediaElement.setAttribute('alt', lemedia._title)
+
+          let handle = lemedia._video;
+          let tmp = handle.split('.')
+          let extension = tmp.pop() // on fait sautre l'extension
+          let filename = tmp.join('.') // on rassembler les différentes partie pour reconstituer le nom de l'image pour éviter le cas suivant :  nom_imags.jpg.png
+
+
+
           mediaElement.src = `assets/images/${lemedia._photographerName}/${lemedia._video}`;
           mediaElement.controls = true;
           type = 'video';
 
         }
 
-        // constitution d'une card qui contient l'image, le coeur, le nb de like
+
+        // constitution d'une card qui contient la video, le coeur, le nb de like
         if (mediaElement) {
           let containerElement = document.createElement("article");
           containerElement.classList.add(type === 'image' ? "photo-item" : "video-item");
-
-          mediaElement.addEventListener('click', function () {
+          // ajout du click pour ouvrir la modale
+          mediaElement.addEventListener('click', function (e) {
             openModale(mediaElement.src, type, i);
           });
+
+
+
+          // ajout du du tabIndex
+          containerElement.setAttribute('tabIndex', 100 + i);
+
+
           containerElement.appendChild(mediaElement);
 
 
@@ -191,7 +207,7 @@ fetch('data/photographers.json')
           likesElement.appendChild(likesText);
 
           //
-          let heartIcon = document.createElement("i");
+          let heartIcon = document.createElement("span");
           heartIcon.classList.add("fa-regular");
           heartIcon.classList.add("fa-heart");
 
@@ -233,17 +249,14 @@ fetch('data/photographers.json')
       // je crée et j'ajoute le nombre total de likes
       let totalLikesCount = document.createElement("div");
       totalLikesCount.id = "total-likes"
-      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span>
-       `;
+      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span> `;
       portfolioContainer.appendChild(totalLikesCount);
 
 
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
-      dayPrice.innerHTML=`${photographerPrice} € / jour`
+      dayPrice.innerHTML= `${photographerPrice} € / jour`
       portfolioContainer.appendChild(dayPrice)
-
-
 
     }
 
@@ -264,32 +277,44 @@ fetch('data/photographers.json')
     });
 
 
-
+//dropDown
     const containerDropdown = document.querySelector('.container-dropdown');
     let secondClick = false;
-   
-    
+    const btnTitre = document.getElementById("titre")
+    //const btnPop = document.getElementById("pop")
+    let chevron = document.querySelector('.chevron-haut');
+
+
     containerDropdown.addEventListener('click', (e) => {
-      //si c'est le prmier click alors
+      // pointer-event:nopne for video for the time being
+      let video = document.querySelector('.video-item');
+      video.style.pointerEvents = "none"
+
+      //si c'est le premier click alors
       if (!secondClick) {
-        containerDropdown.style.height="100px"
+        console.log('click 1')
+
+        containerDropdown.style.height = "150px"
         //quand je clique sur un bouton au départ, tous les boutons s'affichent
         for (let child of containerDropdown.children) {
           child.style.display = '';
         }
       } else {
-        containerDropdown.style.height = "20px"
-      
-        
+        console.log('click 2')
+
+        containerDropdown.style.height = "45px";
+
         // au deuxième clic, que le bouton cliqué est visible
         for (let child of containerDropdown.children) {
           child.style.display = 'none';
+          
         }
         e.target.style.display = '';  // Le bouton cliqué est affiché
+        // hack pb avec pointer event pour les éléement video
+        video.style.pointerEvents = "auto";
       }
       secondClick = !secondClick;
     });
-
 
 
     // Initialisation du tri par défaut et affichage du portfolio
@@ -366,7 +391,7 @@ fetch('data/photographers.json')
 
     //fonction pour faire défiler les vidéo à l'aide du bouton suivant
     function nextMedia() {
-      console.log(arguments)
+
       if (currentMediaIndex < portfolio.length - 1) {
         currentMediaIndex++;
         const media = portfolio[currentMediaIndex];
@@ -397,9 +422,10 @@ fetch('data/photographers.json')
         previousMedia()
       if (e.keyCode == 39)
         nextMedia()
-    });
-    // document.querySelector('.lightbox-previous').addEventListener('keydown', previousMedia);
+      if (e.keyCode == 13)
+        nextMedia()
 
+    });
 
     // fermeture de la modale au click 
     document.querySelector('.lightbox-close').addEventListener('click', closeModale);
@@ -417,20 +443,3 @@ function closeModale() {
   modale.style.display = 'none';
 }
 
-  // bouton de contact modale
-  let contact_button = document.querySelector('#envoi_data')
-
-  contact_button.addEventListener('click', function (e) {
-    e.preventDefault()
-    // fetch des champs
-    let email = document.querySelector('#email').value
-    let nom = document.querySelector('#nom').value
-    let prenom = document.querySelector('#prenom').value
-    let commentaire = document.querySelector('#commentaire').value
-    console.log('Données du formulaire')
-    console.log(email)
-    console.log(nom)
-    console.log(prenom)
-    console.log(commentaire)
-    closeModal()
-  })
