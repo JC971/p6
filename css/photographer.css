@@ -334,13 +334,8 @@ label {
 }
 
 .rate {
-    text-align: right;
-    font-size: 24px;
-    bottom: 20px;
-    right: 20px;
     height: 50px;
     position: fixed;
-    bottom: 0px;
     color: #000000;
     font-weight: 500;
     background-color: rgba(219, 136, 118, 1);

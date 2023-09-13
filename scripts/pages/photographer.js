@@ -107,6 +107,7 @@ fetch('data/photographers.json')
 
     };
 
+    //DROPDOWN
     // functions tri
     function sortPortfolioByDate() {
       portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -187,7 +188,6 @@ fetch('data/photographers.json')
           });
 
 
-
           // ajout du du tabIndex
           containerElement.setAttribute('tabIndex', 100 + i);
 
@@ -249,13 +249,13 @@ fetch('data/photographers.json')
       // je crée et j'ajoute le nombre total de likes
       let totalLikesCount = document.createElement("div");
       totalLikesCount.id = "total-likes"
-      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span> `;
+      totalLikesCount.innerHTML = `${total} <span class="fa-heart fa-solid" style="color:black"></span>`;
       portfolioContainer.appendChild(totalLikesCount);
 
 
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
-      dayPrice.innerHTML= `${photographerPrice} € / jour`
+dayPrice.innerHTML=`${photographerPrice} € / jour`
       portfolioContainer.appendChild(dayPrice)
 
     }
@@ -276,45 +276,62 @@ fetch('data/photographers.json')
       displayPortfolio();
     });
 
-
-//dropDown
+    //dropdown
+    
     const containerDropdown = document.querySelector('.container-dropdown');
     let secondClick = false;
-    const btnTitre = document.getElementById("titre")
-    //const btnPop = document.getElementById("pop")
-    let chevron = document.querySelector('.chevron-haut');
-
-
+    const btnTitre = document.getElementById("titre");
+    const btnPop = document.getElementById("pop");
+    const chevron = document.querySelector(".chevron-haut");
+    
     containerDropdown.addEventListener('click', (e) => {
-      // pointer-event:nopne for video for the time being
+      // pointer-event:none for video for the time being
       let video = document.querySelector('.video-item');
-      video.style.pointerEvents = "none"
-
-      //si c'est le premier click alors
+      video.style.pointerEvents = "none";
+    
       if (!secondClick) {
         console.log('click 1')
-
-        containerDropdown.style.height = "150px"
-        //quand je clique sur un bouton au départ, tous les boutons s'affichent
+    
+        containerDropdown.style.height = "150px";
+        // quand je clique sur un bouton au départ, tous les boutons s'affichent
         for (let child of containerDropdown.children) {
           child.style.display = '';
+          // Retirez la classe "active" de tous les boutons
+          child.classList.remove('active');
+          // Masquer le chevron du bouton btnPop
+          if (child === btnPop || child === btnTitre) {
+            const chevron = child.querySelector(".chevron-haut");
+            if (chevron) {
+              chevron.style.display = "none";
+            }
+          }
         }
       } else {
+    
         console.log('click 2')
-
+    
         containerDropdown.style.height = "45px";
-
+    
         // au deuxième clic, que le bouton cliqué est visible
         for (let child of containerDropdown.children) {
           child.style.display = 'none';
-          
         }
         e.target.style.display = '';  // Le bouton cliqué est affiché
-        // hack pb avec pointer event pour les éléement video
+        // Ajoutez la classe "active" uniquement au bouton cliqué
+        e.target.classList.add('active');
+        // Afficher le chevron sur les boutons btnPop et btnTitre quand ils sont cliqués
+        if (e.target === btnPop || e.target === btnTitre) {
+          const chevron = e.target.querySelector(".chevron-haut");
+          if (chevron) {
+            chevron.style.display = "inline-block";
+          }
+        }
+        // hack pb avec pointer event pour les éléments vidéo
         video.style.pointerEvents = "auto";
       }
       secondClick = !secondClick;
     });
+    
 
 
     // Initialisation du tri par défaut et affichage du portfolio
