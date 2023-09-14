@@ -21,11 +21,8 @@ header {
 }
 
 main {
-    /* height: 873px;*/
     font-family: Arial;
-
 }
-
 
 
 h1 {
@@ -52,13 +49,10 @@ h4 {
     color: #757575;
     font-weight: 400;
     margin: 0;
-
-
 }
 
 .logo {
     padding-left: 20px;
-    ;
     height: 50px;
     width: 15%;
     border-radius: 0;

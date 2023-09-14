@@ -7,8 +7,6 @@ let totalLikesElement = document.getElementById('total-likes');
 
 
 
-
-
 // je récupère les données
 fetch('data/photographers.json')
   .then(response => response.json())
@@ -107,7 +105,6 @@ fetch('data/photographers.json')
 
     };
 
-    //DROPDOWN
     // functions tri
     function sortPortfolioByDate() {
       portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -176,7 +173,6 @@ fetch('data/photographers.json')
           type = 'video';
 
         }
-
 
         // constitution d'une card qui contient la video, le coeur, le nb de like
         if (mediaElement) {
@@ -356,6 +352,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
         const modalImage = document.createElement('img');
         modalImage.id = "modale-image";
         modalImage.src = mediaSrc;
+        modalImage.alt = "image du portfolio";
         modale.insertBefore(modalImage, modale.querySelector('.lightbox-close'));
         // pour ls videos
       } else if (type === 'video') {

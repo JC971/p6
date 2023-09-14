@@ -22,10 +22,6 @@ links.forEach(link => {
       window.location.href = newUrl;
     }
   })
-
-
-
-
 });
 async function getPhotographers() {
   const response = await fetch('data/photographers.json');
@@ -38,10 +34,8 @@ async function getPhotographers() {
   }
 };
 
-
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer_section");
-
   // affiche les photos des photographes
   photographers.forEach((photographer) => {
     const photographerModel = photographerFactory(photographer);
