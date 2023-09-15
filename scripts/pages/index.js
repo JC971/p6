@@ -1,4 +1,3 @@
-// Récupérer tous les liens 
 
 const links = document.querySelectorAll('a');
 
@@ -17,24 +16,24 @@ links.forEach(link => {
       const photographerIdent = link.id;
 
       // Construire la nouvelle URL avec l'ID du photographe en tant que paramètre de requête
-      const newUrl = `https://photographer.html?id=${photographerIdent}`;
+      
+      window.location.href = `https://photographer.html?id=${photographerIdent}`;
 
-      window.location.href = newUrl;
     }
   })
 });
-async function getPhotographers() {
+
+const getPhotographers = async () => {
   const response = await fetch('data/photographers.json');
   if (response.ok) {
     const data = await response.json();
-
     return data;
   } else {
     console.error('Erreur chargement des photographes');
   }
 };
 
-async function displayData(photographers) {
+const displayData = async (photographers) => {
   const photographersSection = document.querySelector(".photographer_section");
   // affiche les photos des photographes
   photographers.forEach((photographer) => {
@@ -46,7 +45,7 @@ async function displayData(photographers) {
 
 };
 
-async function init() {
+const init= async () => {
   // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
   displayData(photographers);

@@ -96,6 +96,7 @@ fetch('data/photographers.json')
 
     if (currentPhotographer.portrait !== undefined && typeof currentPhotographer.portrait === 'string') {
       image.src = `assets/photographers/${currentPhotographer.portrait}`;
+      // texte alternatif
       image.alt = currentPhotographer.name;
       photoPortraitElement.appendChild(image);
       let likes = document.querySelector('like');
@@ -106,21 +107,21 @@ fetch('data/photographers.json')
     };
 
     // functions tri
-    function sortPortfolioByDate() {
+    const sortPortfolioByDate= ()=> {
       portfolio.sort((a, b) => new Date(a.date) - new Date(b.date));
     }
 
-    function sortPortfolioByPopularity() {
+    const sortPortfolioByPopularity=()=> {
       portfolio.sort((a, b) => b.likes - a.likes);
     }
 
-    function sortPortfolioByTitle() {
+    const sortPortfolioByTitle=()=> {
       portfolio.sort((a, b) => a.title.localeCompare(b.title));
     }
 
     // affiche le portfolio d'un photographe
 
-    function displayPortfolio() {
+    const displayPortfolio=()=> {
       const portfolioContainer = document.querySelector('#portfolio-container');
       portfolioContainer.innerHTML = '';
 
@@ -210,7 +211,7 @@ fetch('data/photographers.json')
 
 
           // click sur coeur de la photo
-          heartIcon.addEventListener("click", function (e) {
+          heartIcon.addEventListener("click", (e) => {
             // detect en fonction de la class si on a déjà liké ou non
             let lesclasses = heartIcon.className;
 
@@ -251,7 +252,7 @@ fetch('data/photographers.json')
 
       let dayPrice = document.createElement("div");
       dayPrice.classList.add("rate");
-dayPrice.innerHTML=`${photographerPrice} € / jour`
+      dayPrice.innerHTML=`${photographerPrice} € / jour`
       portfolioContainer.appendChild(dayPrice)
 
     }
@@ -338,7 +339,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
     let total = 0;
 
     // ouverture de la modale PHOTO/VIDEO
-    function openModale(mediaSrc, type, index) {
+    const openModale = (mediaSrc, type, index) => {
       currentMediaIndex = index;
       const modale = document.querySelector('.lightbox-modal .lightbox-image-container');
 
@@ -368,7 +369,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
 
 
     // fonction qui regroupe les images et les vidéo 
-    function displayMediaInLightbox(src, type, index) {
+    const displayMediaInLightbox=(src, type, index) => {
       currentMediaIndex = index || currentMediaIndex;
 
       const containerLightbox = document.querySelector('.lightbox-image-container');
@@ -392,7 +393,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
       }
 
       if (newMediaElement) {
-        containerLightbox.insertBefore(newMediaElement, containerLightbox.querySelector('.lightbox-close'));  // And here
+        containerLightbox.insertBefore(newMediaElement, containerLightbox.querySelector('.lightbox-close'));  // insertion avant fermeture
       }
 
       // pour afficher la modale
@@ -404,7 +405,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
 
 
     //fonction pour faire défiler les vidéo à l'aide du bouton suivant
-    function nextMedia() {
+    const nextMedia =()=> {
 
       if (currentMediaIndex < portfolio.length - 1) {
         currentMediaIndex++;
@@ -416,7 +417,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
 
     }
     //fonction pour revenir en arrière
-    function previousMedia() {
+    const previousMedia=() => {
       if (currentMediaIndex > 0) {
         currentMediaIndex--;
         const media = portfolio[currentMediaIndex];
@@ -430,7 +431,22 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
     // écoute pour les bouton suivant et précédent à al souris
     document.querySelector('.lightbox-next').addEventListener('click', (e) => nextMedia());
     document.querySelector('.lightbox-previous').addEventListener('click', (e) => previousMedia());
-    // a clavier
+    // au clavier
+    document.querySelector('body').addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowLeft': // Flèche gauche
+          previousMedia();
+          break;
+        case 'ArrowRight': // Flèche droite
+        case 'Enter': // Touche Entrée (même action que la flèche droite)
+          nextMedia();
+          break;
+        // Vous pouvez ajouter d'autres cas pour d'autres touches si nécessaire
+      }
+    });
+    
+    
+    /*
     document.querySelector('body').addEventListener('keydown', (e) => {
       if (e.keyCode == 37)
         previousMedia()
@@ -440,7 +456,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
         nextMedia()
 
     });
-
+*/
     // fermeture de la modale au click 
     document.querySelector('.lightbox-close').addEventListener('click', closeModale);
 
@@ -451,7 +467,7 @@ dayPrice.innerHTML=`${photographerPrice} € / jour`
 
 
 // fermeture de la modale
-function closeModale() {
+const closeModale= () => {
   const modale = document.querySelector('.lightbox-modal');
   // je fais disparaitre la modale
   modale.style.display = 'none';
